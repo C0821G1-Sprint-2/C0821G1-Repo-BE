@@ -1,6 +1,6 @@
 package com.example.demo.entity.equipment;
 
-import com.example.demo.entity.order.OrderEquipment;
+import com.example.demo.entity.order.Cart;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -42,17 +42,17 @@ public class Equipment {
 
     @OneToMany(mappedBy = "equipment")
     @JsonBackReference
-    private List<OrderEquipment> orderEquipments;
+    private List<Cart> carts;
 
     public Equipment() {
     }
 
-    public List<OrderEquipment> getOrderEquipments() {
-        return orderEquipments;
+    public List<Cart> getCarts() {
+        return carts;
     }
 
-    public void setOrderEquipments(List<OrderEquipment> orderEquipments) {
-        this.orderEquipments = orderEquipments;
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
     }
 
 
