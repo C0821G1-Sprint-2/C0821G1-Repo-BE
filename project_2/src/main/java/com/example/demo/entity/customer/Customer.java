@@ -1,6 +1,6 @@
 package com.example.demo.entity.customer;
 
-import com.example.demo.entity.order.OrderEquipment;
+import com.example.demo.entity.order.Cart;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -26,16 +26,16 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     @JsonBackReference
-    private List<OrderEquipment> orderEquipments;
+    private List<Cart> carts;
     public Customer() {
     }
 
-    public List<OrderEquipment> getOrderEquipments() {
-        return orderEquipments;
+    public List<Cart> getCarts() {
+        return carts;
     }
 
-    public void setOrderEquipments(List<OrderEquipment> orderEquipments) {
-        this.orderEquipments = orderEquipments;
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
     }
 
     public Integer getId() {
