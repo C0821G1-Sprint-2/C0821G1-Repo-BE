@@ -1,6 +1,6 @@
 package com.example.demo.entity.equipment;
 
-import com.example.demo.entity.order.Cart;
+import com.example.demo.entity.cart.Cart;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -134,5 +134,37 @@ public class Equipment {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
+    }
+
+    public Introduce getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(Introduce introduce) {
+        this.introduce = introduce;
+    }
+
+    public TechnicalInformation getTechnicalInformation() {
+        return technicalInformation;
+    }
+
+    public void setTechnicalInformation(TechnicalInformation technicalInformation) {
+        this.technicalInformation = technicalInformation;
+    }
+
+    public Description getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(Description descriptions) {
+        this.descriptions = descriptions;
+    }
+
+    public Certifications getCertifications() {
+        return certifications;
+    }
+
+    public void setCertifications(Certifications certifications) {
+        this.certifications = certifications;
     }
 }
