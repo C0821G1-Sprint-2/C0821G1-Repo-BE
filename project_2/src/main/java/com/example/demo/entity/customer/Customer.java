@@ -1,6 +1,6 @@
 package com.example.demo.entity.customer;
 
-import com.example.demo.entity.order.Cart;
+import com.example.demo.entity.cart.Cart;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
