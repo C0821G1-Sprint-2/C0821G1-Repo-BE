@@ -2,15 +2,18 @@ package com.example.demo.repository;
 
 import com.example.demo.dto.EmployeeDTO;
 import com.example.demo.entity.employee.Employee;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
-
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO employee ( `code`,`name`, date_of_birth, gender, delete_flag,  image, phone,address, employee_position_id) \n" +
@@ -28,4 +31,18 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
 
     @Query(nativeQuery = true)
     EmployeeDTO findEmployeeById(Integer employeeId);
+    @Query(value = "select * from  employee where delete_flag = false ", nativeQuery = true)
+    Page<Employee> findAllEmployee(Pageable pageable);
+
+    @Query(value = "select * from employee where id=?", nativeQuery = true)
+    Optional<Employee> findEployeeById(Integer id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update employee set delete_flag = 1 where id=?", nativeQuery = true)
+    void deleteById(Integer id);
+
 }
+
+
+

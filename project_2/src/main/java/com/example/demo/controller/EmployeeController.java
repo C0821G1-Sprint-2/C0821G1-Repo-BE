@@ -12,16 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @RestController
-@RequestMapping(value = "/employees")
+@RequestMapping(value = "/employee")
 public class EmployeeController {
     @Autowired
     private IEmployeeService employeeService;
-
+    // PhienLD thêm mới nhân viên
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> addEmployee(@Valid @RequestBody EmployeeDTO employeeDTO, BindingResult bindingResult) {
+    public ResponseEntity<Object> addEmployee( @RequestBody EmployeeDTO employeeDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_MODIFIED);
         }
@@ -30,9 +28,9 @@ public class EmployeeController {
         employeeService.saveEmployee(employee);
         return new ResponseEntity<>(employeeDTO, HttpStatus.CREATED);
     }
-
+    // PhienLD chỉnh sửa  nhân viên
     @PatchMapping(value = "/edit/{id}")
-    public ResponseEntity<Object> editEmployee(@RequestBody @Valid EmployeeDTO employeeDTO, BindingResult bindingResult) {
+    public ResponseEntity<Object> editEmployee(@RequestBody  EmployeeDTO employeeDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
         }
@@ -42,5 +40,4 @@ public class EmployeeController {
         employeeService.editEmployee(employee);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
