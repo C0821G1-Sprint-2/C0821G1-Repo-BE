@@ -47,6 +47,7 @@ public class Equipment {
     public Equipment() {
     }
 
+
     public List<OrderEquipment> getOrderEquipments() {
         return orderEquipments;
     }
