@@ -84,7 +84,7 @@ public class EquipmentRestController {
 
     //Tây chức năng hiển thị thông tin vật tư
     @GetMapping("/equipment-list")
-    public ResponseEntity<Page<Equipment>> findContractByNameAndCodeAndDate(
+    public ResponseEntity<Page<Equipment>> findEquipmentByKeyword(
             @RequestParam(defaultValue = "") String keyword,
             @RequestParam(defaultValue = "0") int page
     ) {
@@ -101,7 +101,7 @@ public class EquipmentRestController {
 
     //Tây chức năng xóa vật tư
     @DeleteMapping("delete-equipment/{id}")
-    public ResponseEntity<Equipment> deleteCustomer(@PathVariable Integer id) {
+    public ResponseEntity<Equipment> deleteEquipment(@PathVariable Integer id) {
         Optional<Equipment> equipmentOptional = equipmentService.findEquipmentById(id);
         if (!equipmentOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
