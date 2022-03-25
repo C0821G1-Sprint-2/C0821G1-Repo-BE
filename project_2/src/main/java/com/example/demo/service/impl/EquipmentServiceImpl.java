@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.employee.Employee;
 import com.example.demo.entity.equipment.Equipment;
 import com.example.demo.repository.IEquipmentRepository;
 import com.example.demo.service.IEmployeeService;
@@ -16,11 +17,11 @@ public class EquipmentServiceImpl implements  IEquipmentService {
     @Autowired
     IEquipmentRepository iEquipmentRepository;
 
+
     @Override
     public Equipment findById(Integer id) {
         return iEquipmentRepository.findById(id).orElse(null);
     }
-
     @Override
     public Optional<Equipment> findEquipmentById(Integer id) {
         return this.iEquipmentRepository.findEquipmentById(id);
