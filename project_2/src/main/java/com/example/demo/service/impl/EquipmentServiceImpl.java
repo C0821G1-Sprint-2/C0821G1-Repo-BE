@@ -6,10 +6,14 @@ import com.example.demo.repository.IEquipmentRepository;
 import com.example.demo.service.IEmployeeService;
 import com.example.demo.service.IEquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
-public class EquipmentServiceImpl implements IEquipmentService {
+public class EquipmentServiceImpl implements  IEquipmentService {
     @Autowired
     IEquipmentRepository iEquipmentRepository;
 
@@ -18,5 +22,18 @@ public class EquipmentServiceImpl implements IEquipmentService {
     public Equipment findById(Integer id) {
         return iEquipmentRepository.findById(id).orElse(null);
     }
+    @Override
+    public Optional<Equipment> findEquipmentById(Integer id) {
+        return this.iEquipmentRepository.findEquipmentById(id);
+    }
 
+    @Override
+    public Page<Equipment> findAllEquipmentByKeyword(String keyword, Pageable pageable) {
+        return this.iEquipmentRepository.findAllContractByKeyword(keyword,pageable);
+    }
+
+    @Override
+    public void deleteEquipment(Integer id) {
+        this.iEquipmentRepository.deleteEquipment(id);
+    }
 }
