@@ -26,12 +26,11 @@ public interface IEquipmentRepository extends JpaRepository<Equipment,Integer> {
     Optional<Equipment> findEquipmentById(Integer id);
 
     @Query(value = " select * from equipment \n" +
-            " where equipment.code like %?1% and equipment.delete_flag = 0 " +
+            " where equipment.code like %?1% or equipment.expired like %?1% or equipment.name like %?1% or equipment.price like %?1% and equipment.delete_flag = 0 " +
             " order by equipment.id desc ", nativeQuery = true,
             countQuery = " select count(*) from equipment \n " +
-                    " where equipment.code like %?1% and equipment.delete_flag = 0 " +
+                    " where equipment.code like %?1% or equipment.expired like %?1% or equipment.name like %?1% or equipment.price like %?1% and equipment.delete_flag = 0 " +
                     " order by equipment.id desc ")
     Page<Equipment> findAllContractByKeyword(String keyword,@Param("page") Pageable pageable);
-
 
 }
