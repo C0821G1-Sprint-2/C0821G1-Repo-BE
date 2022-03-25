@@ -21,7 +21,7 @@ public class Employee {
     private Boolean deleteFlag;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_position_id", nullable = false)
     private EmployeePosition employeePosition;
 
     @OneToOne(targetEntity = AppUser.class, cascade = {CascadeType.PERSIST})
