@@ -1,4 +1,4 @@
-package com.example.demo.entity.order;
+package com.example.demo.entity.cart;
 import com.example.demo.entity.customer.Customer;
 import com.example.demo.entity.equipment.Equipment;
 
