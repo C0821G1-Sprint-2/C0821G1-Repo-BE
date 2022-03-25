@@ -1,9 +1,11 @@
 package com.example.demo.entity.security;
 
+import com.example.demo.entity.employee.Employee;
+
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity(name = "app_users")
+@Entity(name = "app_user")
 //@SQLDelete(sql = "UPDATE app_users SET deleted = true WHERE id=?")
 //@Where(clause = "deleted=false")
 
@@ -11,38 +13,61 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-//    @NotBlank(message = " Tên đăng nhập không được để trống")
+    //    @NotBlank(message = " Tên đăng nhập không được để trống")
     private String username;
-//    @NotBlank(message = " Mật khẩu không được để trống")
+    //    @NotBlank(message = " Mật khẩu không được để trống")
     private String password;
     private Boolean isEnabled;
     private String verificationCode;
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, targetEntity = Role.class)
+    //    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, targetEntity = Role.class)
 //    @JoinTable(name = "app_users_roles",
 //            joinColumns = @JoinColumn(name = "app_users_id"),
 //            inverseJoinColumns = @JoinColumn(name = "roles_id"))
 //    private Set<Role> roles;
-        @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = Roles.class)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = Roles.class)
     @JoinTable(name = "app_users_roles",
             joinColumns = @JoinColumn(name = "app_users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Roles> roles;
+
+//    @OneToOne(targetEntity = Employee.class, cascade = {CascadeType.PERSIST})
+//    private Employee employee;
+
 
     private Boolean deleted = Boolean.FALSE;
 
     public AppUser() {
     }
 
-
-    public AppUser(Integer id, String username, String password, Boolean isEnabled, String verificationCode, Set<Roles> roles, Boolean deleted) {
+    public AppUser(Integer id, String username, String password, Boolean isEnabled, String verificationCode, Set<Roles> roles, Employee employee, Boolean deleted) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.isEnabled = isEnabled;
         this.verificationCode = verificationCode;
         this.roles = roles;
+//        this.employee = employee;
         this.deleted = deleted;
     }
+
+//    public AppUser(Integer id, String username, String password, Boolean isEnabled, String verificationCode, Set<Roles> roles, Boolean deleted) {
+//        this.id = id;
+//        this.username = username;
+//        this.password = password;
+//        this.isEnabled = isEnabled;
+//        this.verificationCode = verificationCode;
+//        this.roles = roles;
+//        this.deleted = deleted;
+//    }
+
+
+//    public Employee getEmployee() {
+//        return employee;
+//    }
+//
+//    public void setEmployee(Employee employee) {
+//        this.employee = employee;
+//    }
 
     public Integer getId() {
         return id;

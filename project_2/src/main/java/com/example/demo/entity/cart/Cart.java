@@ -1,11 +1,11 @@
-package com.example.demo.entity.order;
+package com.example.demo.entity.cart;
 import com.example.demo.entity.customer.Customer;
 import com.example.demo.entity.equipment.Equipment;
 
 import javax.persistence.*;
 
 @Entity
-public class OrderEquipment {
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,7 +21,7 @@ public class OrderEquipment {
     @ManyToOne
     private Customer customer;
 
-    public OrderEquipment() {
+    public Cart() {
     }
 
     public Customer getCustomer() {
