@@ -9,6 +9,7 @@ import java.util.Optional;
 
 
 public interface IEquipmentService {
+    public Equipment findById(Integer id);
     Optional<Equipment> findEquipmentById(Integer id);
     Page<Equipment> findAllEquipmentByKeyword(String keyword , Pageable pageable);
     void deleteEquipment(Integer id);

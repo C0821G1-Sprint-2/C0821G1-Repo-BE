@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class EquipmentServiceImpl implements IEmployeeService, IEquipmentService {
+public class EquipmentServiceImpl implements  IEquipmentService {
     @Autowired
     IEquipmentRepository iEquipmentRepository;
 
