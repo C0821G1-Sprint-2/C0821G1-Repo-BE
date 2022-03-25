@@ -1,7 +1,8 @@
 package com.example.demo.service;
 
-import org.springframework.stereotype.Service;
+import com.example.demo.entity.equipment.Equipment;
 
 
 public interface IEquipmentService {
+    Equipment findById(Integer id);
 }
