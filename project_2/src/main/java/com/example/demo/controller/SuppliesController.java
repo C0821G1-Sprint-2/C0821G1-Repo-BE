@@ -18,15 +18,14 @@ public class SuppliesController {
     @Autowired
     ISuppliesService suppliesService;
 
-    // Tìm kiếm nhân viên
+    // Lanh
     @GetMapping(value = "/search")
     public ResponseEntity<Page<Supplies>> findAll(@PageableDefault(value = 2) Pageable pageable,
                                                    @RequestParam(defaultValue = "") String startDay,
                                                    @RequestParam(defaultValue = "") String endDay
     ) {
         System.out.println("test");
-        Page<Supplies> suppliesListSearch = suppliesService.findAll(pageable, startDay,
-                endDay);
+        Page<Supplies> suppliesListSearch = suppliesService.findAll(pageable, startDay, endDay);
         System.out.println(suppliesListSearch);
         if (suppliesListSearch.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

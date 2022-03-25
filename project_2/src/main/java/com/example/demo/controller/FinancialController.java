@@ -17,7 +17,7 @@ public class FinancialController {
     @Autowired
     FinancialServiceImpl financialService;
 
-    // Tìm kiếm nhân viên
+    // Lanh
     @GetMapping(value = "/search")
     public ResponseEntity<Page<Financial>> findAll(@PageableDefault(value = 2) Pageable pageable,
                                                                                             @RequestParam(defaultValue = "") String month,
