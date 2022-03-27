@@ -13,16 +13,22 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface IEquipmentRepository extends JpaRepository<Equipment,Integer> {
+public interface IEquipmentRepository extends JpaRepository<Equipment, Integer> {
 
 
-
-//    NghiaDM
+    //NghiaDM
     @Query(value = "select * from equipment where delete_flag = false ", nativeQuery = true)
     Page<Equipment> findAllEquipment(Pageable pageable);
+
+    //NghiaDM
+    @Query(value =" select * from equipment \n" +
+            " where equipment.equipment_type_id = ?1 and equipment.delete_flag = 0 ", nativeQuery = true)
+    Page<Equipment> findEquipment(Pageable pageable, Integer equipmentTypeID);
+
 
     // Anh Tây xóa vật tư
     @Transactional
@@ -30,7 +36,7 @@ public interface IEquipmentRepository extends JpaRepository<Equipment,Integer> {
     @Query(value = "update equipment set delete_flag = 1 where id = ?", nativeQuery = true)
     void deleteEquipment(Integer id);
 
-//    @Transactional
+    //    @Transactional
 //    @Modifying
     @Query(value = "SELECT * FROM equipment WHERE equipment.id = ? and equipment.delete_flag = 0 ", nativeQuery = true)
     Optional<Equipment> findEquipmentById(Integer id);
@@ -41,7 +47,7 @@ public interface IEquipmentRepository extends JpaRepository<Equipment,Integer> {
             countQuery = " select count(*) from equipment \n " +
                     " where equipment.code like %?1% and equipment.delete_flag = 0 " +
                     " order by equipment.id desc ")
-    Page<Equipment> findAllContractByKeyword(String keyword,@Param("page") Pageable pageable);
+    Page<Equipment> findAllContractByKeyword(String keyword, @Param("page") Pageable pageable);
 
 
 }

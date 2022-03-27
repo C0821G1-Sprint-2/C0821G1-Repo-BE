@@ -16,6 +16,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -81,6 +82,19 @@ public class EquipmentRestController {
     public ResponseEntity<Page<Equipment>> equipmentList (@PageableDefault(value = 3) Pageable pageable){
         Page<Equipment> equipments = this.equipmentService.getAll(pageable);
         if (equipments.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(equipments, HttpStatus.OK);
+    }
+    // NghiaDM tim kiem vat tu theo ma vat tu
+    @GetMapping(value = "/search")
+    public ResponseEntity<Page<Equipment>> findEquipmentByEquipmentTypeId(
+            @PageableDefault(value = 3) Pageable pageable,
+            @RequestParam(defaultValue = "") Integer equipmentTypeID){
+        Page<Equipment> equipments = this.equipmentService.findEquipmentByEquipmentType(pageable,equipmentTypeID);
+        System.out.println("hello:");
+        if (equipments.isEmpty()) {
+            System.out.println("hello2");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(equipments, HttpStatus.OK);

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +32,12 @@ public class EquipmentServiceImpl implements IEquipmentService {
     public Page<Equipment> getAll(Pageable pageable) {
         return iEquipmentRepository.findAllEquipment(pageable);
     }
+
+    @Override
+    public Page<Equipment> findEquipmentByEquipmentType(Pageable pageable,Integer equipmentTypeID) {
+        return this.iEquipmentRepository.findEquipment(pageable,equipmentTypeID);
+    }
+
 
     @Override
     public Optional<Equipment> findEquipmentById(Integer id) {
