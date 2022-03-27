@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.EquipmentDTO;
 import com.example.demo.dto.RequestMail;
 import com.example.demo.entity.equipment.Equipment;
 import com.example.demo.service.impl.EquipmentServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
@@ -14,10 +16,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 import java.util.Optional;
+
 
 @RestController
 @CrossOrigin("http://localhost:4200")
@@ -90,14 +95,39 @@ public class EquipmentRestController {
     @GetMapping(value = "/search")
     public ResponseEntity<Page<Equipment>> findEquipmentByEquipmentTypeId(
             @PageableDefault(value = 3) Pageable pageable,
-            @RequestParam(defaultValue = "") Integer equipmentTypeID){
-        Page<Equipment> equipments = this.equipmentService.findEquipmentByEquipmentType(pageable,equipmentTypeID);
+            @RequestParam(defaultValue = "") Integer equipmentTypeID) {
+        Page<Equipment> equipments = this.equipmentService.findEquipmentByEquipmentType(pageable, equipmentTypeID);
         System.out.println("hello:");
         if (equipments.isEmpty()) {
             System.out.println("hello2");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(equipments, HttpStatus.OK);
+    }
+//    Đông
+    @PostMapping("/add")
+    public ResponseEntity<Object> addEquipment(@Valid @RequestBody EquipmentDTO equipmentDTO, BindingResult bindingResult) {
+
+
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
+        }
+        Equipment equipment = new Equipment();
+        BeanUtils.copyProperties(equipmentDTO, equipment);
+        equipment.setDeleteFlag(false);
+        equipmentService.addEquipment(equipment);
+        return new ResponseEntity<>(equipmentDTO,HttpStatus.CREATED);
+    }
+
+    @PatchMapping(value = "/edit")
+    public ResponseEntity<Object> editEquipment(@RequestBody @Valid EquipmentDTO equipmentDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
+        }
+        Equipment equipment = new Equipment();
+        BeanUtils.copyProperties(equipmentDTO, equipment);
+        equipmentService.editEquipment(equipment);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //Tây chức năng tìm equipment theo id
@@ -171,4 +201,5 @@ public class EquipmentRestController {
 //                " Trân trong cảm ơn quý khách");
 //        this.emailSender.send(message);
 //    }
+
 }
