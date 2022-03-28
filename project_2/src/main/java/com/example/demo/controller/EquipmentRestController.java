@@ -7,7 +7,9 @@ import com.example.demo.service.impl.EquipmentServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+
 import org.springframework.data.domain.PageRequest;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -18,9 +20,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.validation.Valid;
-
 import java.util.Optional;
 
 
@@ -51,6 +51,29 @@ public class EquipmentRestController {
     }
 
 
+    // NghiaDM danh sach vat tu
+    @GetMapping(value = "/list")
+    public ResponseEntity<Page<Equipment>> equipmentList(@PageableDefault(value = 3) Pageable pageable){
+        Page<Equipment> equipments = this.equipmentService.getAll(pageable);
+        if (equipments.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(equipments, HttpStatus.OK);
+    }
+
+    // NghiaDM tim kiem vat tu theo ma vat tu
+    @GetMapping(value = "/search")
+    public ResponseEntity<Page<Equipment>> findEquipmentByEquipmentTypeId(
+            @PageableDefault(value = 3) Pageable pageable,
+            @RequestParam(defaultValue = "") Integer equipmentTypeID) {
+        Page<Equipment> equipments = this.equipmentService.findEquipmentByEquipmentType(pageable, equipmentTypeID);
+        System.out.println("hello:");
+        if (equipments.isEmpty()) {
+            System.out.println("hello2");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(equipments, HttpStatus.OK);
+    }
 //    Đông
     @PostMapping("/add")
     public ResponseEntity<Object> addEquipment(@Valid @RequestBody EquipmentDTO equipmentDTO, BindingResult bindingResult) {
@@ -114,4 +137,5 @@ public class EquipmentRestController {
         equipmentService.deleteEquipment(id);
         return new ResponseEntity<>(equipmentOptional.get(), HttpStatus.OK);
     }
+
 }
