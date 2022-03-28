@@ -42,7 +42,7 @@ public class EquipmentRestController {
      * @return ResponseEntity<>(equipment, HttpStatus.OK);
      */
     @GetMapping("/find-by-id/{id}")
-    public ResponseEntity<Equipment> findFloorsById(@PathVariable Integer id) {
+    public ResponseEntity<Equipment> findById(@PathVariable Integer id) {
         Equipment equipment = equipmentService.findById(id);
         if (equipment == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
