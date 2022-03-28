@@ -6,19 +6,62 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class FinancialStatistics {
+public class Financial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String year;
     private String month;
-    private String activity;
-    private Double value;
     private Double grossRevenue;
     private Double totalExpenditure;
     private Double revenue;
+    private Double sell;
+    private Double manufacture;
+    private Double importGoods;
+    private Double payCustomer;
+    private Double cancel;
 
-    public FinancialStatistics() {
+    public Financial() {
+    }
+
+    public Double getSell() {
+        return sell;
+    }
+
+    public void setSell(Double sell) {
+        this.sell = sell;
+    }
+
+    public Double getManufacture() {
+        return manufacture;
+    }
+
+    public void setManufacture(Double manufacture) {
+        this.manufacture = manufacture;
+    }
+
+    public Double getImportGoods() {
+        return importGoods;
+    }
+
+    public void setImportGoods(Double importGoods) {
+        this.importGoods = importGoods;
+    }
+
+    public Double getPayCustomer() {
+        return payCustomer;
+    }
+
+    public void setPayCustomer(Double payCustomer) {
+        this.payCustomer = payCustomer;
+    }
+
+    public Double getCancel() {
+        return cancel;
+    }
+
+    public void setCancel(Double cancel) {
+        this.cancel = cancel;
     }
 
     public Integer getId() {
@@ -43,22 +86,6 @@ public class FinancialStatistics {
 
     public void setMonth(String month) {
         this.month = month;
-    }
-
-    public String getActivity() {
-        return activity;
-    }
-
-    public void setActivity(String activity) {
-        this.activity = activity;
-    }
-
-    public Double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
     }
 
     public Double getGrossRevenue() {

@@ -1,5 +1,6 @@
 package com.example.demo.entity.customer;
 
+import com.example.demo.entity.cart.Address;
 import com.example.demo.entity.cart.Cart;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -20,13 +21,23 @@ public class Customer {
 
     private String phone;
 
-    private String address;
-
     private Boolean deleteFlag;
+
+    @ManyToOne()
+    private Address address;
 
     @OneToMany(mappedBy = "customer")
     @JsonBackReference
     private List<Cart> carts;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public Customer() {
     }
 
@@ -76,14 +87,6 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public Boolean getDeleteFlag() {

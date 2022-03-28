@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class MedicalSuppliesStatistics {
+public class Supplies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -19,7 +19,7 @@ public class MedicalSuppliesStatistics {
     private String startDay;
     private String endDay;
 
-    public MedicalSuppliesStatistics(Integer id, String code, String name, String importedMaterials, String salableMaterials, String inventoryMaterials, String damagedMaterials, String startDay, String endDay) {
+    public Supplies(Integer id, String code, String name, String importedMaterials, String salableMaterials, String inventoryMaterials, String damagedMaterials, String startDay, String endDay) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -31,7 +31,7 @@ public class MedicalSuppliesStatistics {
         this.endDay = endDay;
     }
 
-    public MedicalSuppliesStatistics() {
+    public Supplies() {
     }
 
     public Integer getId() {

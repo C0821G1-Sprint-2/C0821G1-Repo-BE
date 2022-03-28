@@ -1,7 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.equipment.Equipment;
+import com.example.demo.entity.employee.Employee;
+
 
 public interface IEmployeeService {
-    Equipment findById(Integer id);
+    Employee findEmployeeByCode(String employeeCode);
+    void saveEmployee(Employee employee);
+
 }

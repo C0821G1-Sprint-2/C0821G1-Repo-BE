@@ -1,15 +1,11 @@
-package com.example.demo.entity.equipment;
+package com.example.demo.dto;
 
-import com.example.demo.entity.cart.Cart;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.example.demo.entity.equipment.EquipmentType;
+import com.example.demo.entity.equipment.Supplier;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.validation.Validator;
 
-@Entity
-public class Equipment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class EquipmentDTO {
     private Integer id;
     private String code;
     private String name;
@@ -18,41 +14,24 @@ public class Equipment {
     private String status;
     private Boolean deleteFlag;
     private String image;
-
-    @ManyToOne
-//    @JoinColumn(name = "id", nullable = false)
     private EquipmentType equipmentType;
-
-    @ManyToOne
-    private Introduce introduce;
-
-    @ManyToOne
-    private TechnicalInformation technicalInformation;
-
-    @ManyToOne
-    private Description descriptions;
-
-    @ManyToOne
-    private Certifications certifications;
-
-
-    @ManyToOne
-//    @JoinColumn(name = "id", nullable = false)
     private Supplier supplier;
 
-    @OneToMany(mappedBy = "equipment")
-    @JsonBackReference
-    private List<Cart> carts;
-
-    public Equipment() {
+    public EquipmentDTO() {
     }
 
-
-
-    public void setCarts(List<Cart> carts) {
-        this.carts = carts;
+    public EquipmentDTO(Integer id, String code, String name, String price, String expired, String status, Boolean deleteFlag, String image, EquipmentType equipmentType, Supplier supplier) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.price = price;
+        this.expired = expired;
+        this.status = status;
+        this.deleteFlag = deleteFlag;
+        this.image = image;
+        this.equipmentType = equipmentType;
+        this.supplier = supplier;
     }
-
 
     public Integer getId() {
         return id;
@@ -132,37 +111,5 @@ public class Equipment {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
-    }
-
-    public Introduce getIntroduce() {
-        return introduce;
-    }
-
-    public void setIntroduce(Introduce introduce) {
-        this.introduce = introduce;
-    }
-
-    public TechnicalInformation getTechnicalInformation() {
-        return technicalInformation;
-    }
-
-    public void setTechnicalInformation(TechnicalInformation technicalInformation) {
-        this.technicalInformation = technicalInformation;
-    }
-
-    public Description getDescriptions() {
-        return descriptions;
-    }
-
-    public void setDescriptions(Description descriptions) {
-        this.descriptions = descriptions;
-    }
-
-    public Certifications getCertifications() {
-        return certifications;
-    }
-
-    public void setCertifications(Certifications certifications) {
-        this.certifications = certifications;
     }
 }
