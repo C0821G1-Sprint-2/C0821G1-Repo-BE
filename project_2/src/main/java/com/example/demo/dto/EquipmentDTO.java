@@ -4,17 +4,30 @@ import com.example.demo.entity.equipment.EquipmentType;
 import com.example.demo.entity.equipment.Supplier;
 
 import javax.validation.Validator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class EquipmentDTO {
+    @NotNull
     private Integer id;
+    @NotNull
     private String code;
+    @NotNull
     private String name;
+    @NotNull
+    @Pattern(regexp = "^[\\d]{4,9}$", message = "Số tiền phải nhập đúng định dạng")
     private String price;
+    @NotNull
     private String expired;
+    @NotNull
     private String status;
+    @NotNull
     private Boolean deleteFlag;
+    @NotNull
     private String image;
+    @NotNull
     private EquipmentType equipmentType;
+    @NotNull
     private Supplier supplier;
 
     public EquipmentDTO() {
