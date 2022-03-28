@@ -14,4 +14,19 @@ public class AppUserServiceImpl implements IAppUserService {
     public void createAppUser(AppUser appUser) {
         iAppUserRepository.createAppUser(appUser.getUsername(),appUser.getPassword());
     }
+    // NghiaDM
+    @Override
+    public AppUser findAppUserByUserName(String userName) {
+        return iAppUserRepository.getAppUserByUsername(userName);
+    }
+
+    @Override
+    public void saveAppUser(AppUser appUser) {
+        iAppUserRepository.save(appUser);
+    }
+
+    @Override
+    public AppUser findAppUserByEmail(String email) {
+        return iAppUserRepository.findAppUserByEmail(email);
+    }
 }

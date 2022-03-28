@@ -25,6 +25,8 @@ public class AppUserController {
     @Autowired
     EmployeeServiceImpl employeeService;
 
+
+    //Bảo đăng ký tài khoản
     @PostMapping(value = "/create/{code}")
     public ResponseEntity<Object> createAppUser(@RequestBody AppUser appUser,
                                                 @PathVariable String code,

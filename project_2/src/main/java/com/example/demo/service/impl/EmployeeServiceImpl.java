@@ -24,4 +24,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public void saveEmployee(Employee employee) {
         employeeRepository.save(employee);
     }
+
+    @Override
+    public Employee getEmployeeByUsername(String username) {
+        return employeeRepository.findEmployeeByAppUser(username);
+    }
 }

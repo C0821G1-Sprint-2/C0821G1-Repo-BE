@@ -8,4 +8,6 @@ public interface IEmployeeService {
     Employee findEmployeeByCode(String employeeCode);
 
     void saveEmployee(Employee employee);
+
+    Employee getEmployeeByUsername(String username);
 }

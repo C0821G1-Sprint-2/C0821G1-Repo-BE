@@ -14,4 +14,9 @@ public interface IEmployeeRepository extends JpaRepository<Employee,Integer> {
             "from employee  " +
             "where code =?1", nativeQuery = true)
     Employee getEmployeeByCode(String employeeCode);
+
+    @Query(value = "SELECT * from employee e " +
+            "join app_user a on e.app_user_id = a.id " +
+            "where a.username =?1 and e.employee_delete_flag = false ", nativeQuery = true)
+    Employee findEmployeeByAppUser(String username);
 }
