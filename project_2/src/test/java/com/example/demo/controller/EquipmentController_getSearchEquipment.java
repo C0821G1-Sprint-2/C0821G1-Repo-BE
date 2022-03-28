@@ -24,8 +24,8 @@ public class EquipmentController_getSearchEquipment {
         Assertions.assertEquals(1, responseEntity.getBody().getTotalElements());
         Assertions.assertEquals("Bông Gòn",responseEntity.getBody().getContent().get(0).getName());
     }
-//
-//    // search trường code
+
+    // search trường code
     @Test
     public void searchEquipmentCode(){
         ResponseEntity<Page<Equipment>> responseEntity
@@ -36,7 +36,8 @@ public class EquipmentController_getSearchEquipment {
         Assertions.assertEquals(1, responseEntity.getBody().getTotalElements());
         Assertions.assertEquals("VT-0004",responseEntity.getBody().getContent().get(0).getCode());
     }
-//    // search trường price
+
+    // search trường price
     @Test
     public void searchEquipmentPrice(){
         ResponseEntity<Page<Equipment>> responseEntity

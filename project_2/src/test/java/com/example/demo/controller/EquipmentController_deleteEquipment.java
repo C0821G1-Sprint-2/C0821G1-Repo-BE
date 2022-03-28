@@ -6,7 +6,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -15,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class EquipmentController_deleteEquipment {
     @Autowired
     private MockMvc mockMvc;
+
     // [id] = null
     @Test
     public void deleteEquipment_1() throws Exception {
@@ -22,6 +22,7 @@ public class EquipmentController_deleteEquipment {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
+
     // [id] = rỗng
     @Test
     public void deleteEquipment_2() throws Exception {
@@ -29,14 +30,16 @@ public class EquipmentController_deleteEquipment {
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
-//    // [id] = không tồn tại
+
+    // [id] = không tồn tại
     @Test
     public void deleteEquipment_3() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.delete("/equipment/delete-equipment/{id}","19"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError());
     }
-//    // [id] =  tồn tại trong database
+
+    // [id] =  tồn tại trong database
     @Test
     public void deleteEquipment_4() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.delete("/equipment/delete-equipment/{id}","2"))

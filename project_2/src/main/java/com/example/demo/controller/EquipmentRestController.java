@@ -124,7 +124,7 @@ public class EquipmentRestController {
             @RequestParam(defaultValue = "0") int page
     ) {
 
-        Pageable pageable = PageRequest.of(page, 2);
+        Pageable pageable = PageRequest.of(page, 3);
         Page<Equipment> equipmentNewPage = equipmentService.findAllEquipmentByKeyword(keyword, pageable);
         System.out.println(equipmentNewPage);
         if (equipmentNewPage.isEmpty()) {
