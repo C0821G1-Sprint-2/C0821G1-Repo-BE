@@ -42,25 +42,25 @@ public class EquipmentRestController {
      * @return ResponseEntity<>(equipment, HttpStatus.OK);
      */
     @GetMapping("/find-by-id/{id}")
-    public ResponseEntity<Equipment> findFloorsById(@PathVariable Integer id) {
-//        Equipment equipment = equipmentService.findById(id);
-//        if (equipment == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(equipment, HttpStatus.OK);
-        return null;
+    public ResponseEntity<Equipment> findById(@PathVariable Integer id) {
+        Equipment equipment = equipmentService.findById(id);
+        if (equipment == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(equipment, HttpStatus.OK);
     }
 
 
     // NghiaDM danh sach vat tu
     @GetMapping(value = "/list")
-    public ResponseEntity<Page<Equipment>> equipmentList (@PageableDefault(value = 3) Pageable pageable){
+    public ResponseEntity<Page<Equipment>> equipmentList(@PageableDefault(value = 3) Pageable pageable){
         Page<Equipment> equipments = this.equipmentService.getAll(pageable);
         if (equipments.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(equipments, HttpStatus.OK);
     }
+
     // NghiaDM tim kiem vat tu theo ma vat tu
     @GetMapping(value = "/search")
     public ResponseEntity<Page<Equipment>> findEquipmentByEquipmentTypeId(
@@ -137,4 +137,5 @@ public class EquipmentRestController {
         equipmentService.deleteEquipment(id);
         return new ResponseEntity<>(equipmentOptional.get(), HttpStatus.OK);
     }
+
 }
