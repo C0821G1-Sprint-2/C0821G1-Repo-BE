@@ -41,7 +41,7 @@ public class EmployeeRestController {
         return new ResponseEntity<>(employeeOptional.get(), HttpStatus.OK);
     }
 
-    //    DuDH xoá nhân viên
+    // DuDH xoá nhân viên
     @PatchMapping(value = "/delete/{id}")
     public ResponseEntity<Employee> deleteEmployees(@PathVariable("id") Integer id) {
         Optional<Employee> employeeOptional = this.employeeService.findEployeeById(id);
