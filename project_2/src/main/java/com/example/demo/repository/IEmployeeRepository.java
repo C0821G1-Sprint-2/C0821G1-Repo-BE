@@ -29,6 +29,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value = "update employee set delete_flag = 1 where id=?", nativeQuery = true)
     void deleteById(Integer id);
 
+    // DuDH tìm kiếm nhân viên
     @Transactional
     @Query(value = " select * from employee \n" +
             " where employee.name like %?1% or employee.date_of_birth like %?1% or employee.phone like %?1% and employee.delete_flag = 0 " +
@@ -37,6 +38,13 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
                     " where employee.name like %?1% or employee.date_of_birth like %?1% or employee.phone like %?1% and employee.delete_flag = 0 " +
                     " order by employee.id desc ")
     Page<Employee> findAllEmployeeByKeyword(String keyword,@Param("page") Pageable pageable);
+
+    //Bảo kiểm tìm kiếm nhân viên theo mã nhân viên
+    @Query(value = "SELECT * " +
+            "from employee  " +
+            "where code =?1", nativeQuery = true)
+    Employee getEmployeeByCode(String employeeCode);
+
 }
 
 
