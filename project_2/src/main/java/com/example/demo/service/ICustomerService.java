@@ -18,9 +18,9 @@ public interface ICustomerService {
 //
 //    //    DuongNT - search by name, email, phone, identify number
     Page<Customer> findCustomerByNameAndEmailAndPhoneAndIdentify(Pageable pageable,
-                                                                 String customer_name,
-                                                                 String customer_email,
-                                                                 String customer_phone,
-                                                                 String customer_identify_number);
+                                                                 String name,
+                                                                 String email,
+                                                                 String phone,
+                                                                 String identify_number);
     void deleteCustomer(Integer id);
 }
