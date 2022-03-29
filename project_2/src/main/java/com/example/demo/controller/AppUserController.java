@@ -9,6 +9,7 @@ import com.example.demo.service.impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,8 @@ public class AppUserController {
                                                 @PathVariable String code,
                                                 BindingResult bindingResult) {
 
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
         //set role
         Set<Roles> roleList = new HashSet<>();
         Roles roles = new Roles();
@@ -44,9 +47,10 @@ public class AppUserController {
         roleList.add(roles);
         appUser.setRoles(roleList);
         appUser.setDeleted(false);
+        appUser.setEnabled(true);
+        appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
 
         //Bảo đăng ký tài khoản nhân viên
-        appUserService.createAppUser(appUser);
         employee.setAppUser(appUser);
 
         employeeService.saveEmployee(employee);
