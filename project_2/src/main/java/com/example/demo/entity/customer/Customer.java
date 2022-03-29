@@ -22,12 +22,22 @@ public class Customer {
 
     private String address;
 
+    private String addressHome;
+
     private Boolean deleteFlag;
 
     @OneToMany(mappedBy = "customer")
     @JsonBackReference
     private List<Cart> carts;
     public Customer() {
+    }
+
+    public String getAddressHome() {
+        return addressHome;
+    }
+
+    public void setAddressHome(String addressHome) {
+        this.addressHome = addressHome;
     }
 
     public List<Cart> getCarts() {
