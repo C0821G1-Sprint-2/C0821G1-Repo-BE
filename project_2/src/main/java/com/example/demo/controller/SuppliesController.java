@@ -5,6 +5,7 @@ import com.example.demo.entity.financial_statistics.Supplies;
 import com.example.demo.service.ISuppliesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -20,10 +21,11 @@ public class SuppliesController {
 
     // Lanh
     @GetMapping(value = "/search")
-    public ResponseEntity<Page<Supplies>> findAll(@PageableDefault(value = 2) Pageable pageable,
+    public ResponseEntity<Page<Supplies>> findAll( @RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(defaultValue = "") String startDay,
                                                    @RequestParam(defaultValue = "") String endDay
     ) {
+        Pageable pageable = PageRequest.of(page, 10);
         System.out.println("test");
         Page<Supplies> suppliesListSearch = suppliesService.findAll(pageable, startDay, endDay);
         System.out.println(suppliesListSearch);
