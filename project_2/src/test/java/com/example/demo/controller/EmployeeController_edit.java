@@ -227,4 +227,50 @@ public class EmployeeController_edit {
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print()).andExpect(status().is4xxClientError());
     }
+
+    @Test
+    public void editEmployee_employeeDateOfBirth_13() throws Exception {
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        employeeDTO.setCode(null);
+        employeeDTO.setName("Le duc phien");
+        employeeDTO.setDateOfBirth("");
+        employeeDTO.setGender("1");
+        employeeDTO.setAddress("");
+        employeeDTO.setPhone("0903157020");
+        employeeDTO.setImage("image1.png");
+        employeeDTO.setDeleteFlag(null);
+
+        EmployeePosition employeePosition = new EmployeePosition();
+        employeePosition.setId(1);
+        employeeDTO.setEmployeePosition(employeePosition);
+
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/employee/edit")
+                .content(this.objectMapper.writeValueAsString(employeeDTO))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print()).andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void editEmployee_employeeDateOfBirth_14() throws Exception {
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        employeeDTO.setCode(null);
+        employeeDTO.setName("Le duc phien");
+        employeeDTO.setDateOfBirth(null);
+        employeeDTO.setGender("1");
+        employeeDTO.setAddress("");
+        employeeDTO.setPhone("0903157020");
+        employeeDTO.setImage("image1.png");
+        employeeDTO.setDeleteFlag(null);
+
+        EmployeePosition employeePosition = new EmployeePosition();
+        employeePosition.setId(1);
+        employeeDTO.setEmployeePosition(employeePosition);
+
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/employee/edit")
+                .content(this.objectMapper.writeValueAsString(employeeDTO))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(print()).andExpect(status().is4xxClientError());
+    }
 }
