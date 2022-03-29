@@ -3,19 +3,23 @@ package com.example.demo.entity.customer;
 import com.example.demo.entity.cart.Address;
 
 public class CustomerTransfer {
+    private String id;
     private String name;
     private String email;
     private String phone;
-    private Address address ;
+    private String address ;
 
-    public CustomerTransfer(String name, String email, String phone, Address address) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-    }
+
 
     public CustomerTransfer() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -38,16 +42,15 @@ public class CustomerTransfer {
         return phone;
     }
 
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 }
