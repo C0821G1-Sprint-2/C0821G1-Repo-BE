@@ -40,7 +40,6 @@ public class CartRestController {
     /**
      * Created: DuyNP
      * Method: create cart
-     *
      * @param cart
      * @return
      */
@@ -56,7 +55,6 @@ public class CartRestController {
     /**
      * Created: DuyNP
      * Method: get cart by id
-     *
      * @param id
      * @return
      */
@@ -81,7 +79,11 @@ public class CartRestController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
+    /**
+     * Created: DuyNP
+     * Method: save customer and sendEmail
+     * @return ResponseEntity<>(HttpStatus.OK);
+     */
     @PostMapping(value = "/home/payment", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpStatus> createCart(@RequestBody PaymentDTO paymentDTO) {
         CustomerTransfer customerTransfer = paymentDTO.getCustomerTransfer();
@@ -98,6 +100,12 @@ public class CartRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Created: DuyNP
+     * property sendEmail
+     * @param customer
+     * @param cartList
+     */
     private void sendEmail(Customer customer, List<Cart> cartList) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(customer.getEmail());
