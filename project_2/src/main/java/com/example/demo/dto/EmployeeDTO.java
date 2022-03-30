@@ -4,6 +4,7 @@ import com.example.demo.entity.employee.EmployeePosition;
 
 public class EmployeeDTO {
     private Integer id;
+
     private String code;
     private String name;
     private String dateOfBirth;
