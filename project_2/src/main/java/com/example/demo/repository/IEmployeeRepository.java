@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,6 +19,10 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
     // DuDH lấy List Employee
     @Query(value = "select * from  employee where delete_flag = false ", nativeQuery = true)
     Page<Employee> findAllEmployee(Pageable pageable);
+
+    // DuDH lấy List Employee
+    @Query(value = "select * from  employee where delete_flag = false ", nativeQuery = true)
+    List<Employee> findAllEmployee();
 
     // DuDH tìm Employee theo Id
     @Query(value = "select * from employee where id=?", nativeQuery = true)

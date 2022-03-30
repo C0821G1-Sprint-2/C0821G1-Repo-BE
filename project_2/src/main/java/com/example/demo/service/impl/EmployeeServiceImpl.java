@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public Page<Employee> findAllEmployee(Pageable pageable) {
         return this.employeeRepository.findAllEmployee(pageable);
+    }
+
+    @Override
+    public List<Employee> findAllEmployee() {
+        return this.employeeRepository.findAllEmployee();
+    }
+
+    @Override
+    public Page<Employee> findAllEmployeeByKeyword(String keyword, Pageable pageable) {
+        return this.employeeRepository.findAllEmployeeByKeyword(keyword, pageable);
     }
 
     @Override

@@ -14,8 +14,9 @@ public class Address {
 
     private String name;
 
-    @JsonBackReference()
+
     @OneToMany(mappedBy = "address")
+    @JsonBackReference
     private Set<Customer> customers;
 
     public Address() {
