@@ -13,13 +13,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
 @RequestMapping(value = "/employee")
 public class EmployeeController {
     @Autowired
     private IEmployeeService employeeService;
     // PhienLD thêm mới nhân viên
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> addEmployee( @RequestBody EmployeeDTO employeeDTO, BindingResult bindingResult) {
+    public ResponseEntity<Object> addEmployee(@RequestBody EmployeeDTO employeeDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_MODIFIED);
         }
