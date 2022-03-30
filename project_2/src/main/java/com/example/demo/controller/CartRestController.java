@@ -55,7 +55,7 @@ public class CartRestController {
     /**
      * Created: DuyNP
      * Method: get cart by id
-      * @param id
+     * @param id
      * @return
      */
     @GetMapping("/find-by-id/{id}")
@@ -66,73 +66,61 @@ public class CartRestController {
         }
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
-
+    /**
+     * Created: DuyNP
+     * Method: get list Address
+     * @return ResponseEntity<>(addressList, HttpStatus.OK)
+     */
     @GetMapping("/address")
-    public ResponseEntity<List<Address>> getAddressList(){
+    public ResponseEntity<List<Address>> getAddressList() {
         List<Address> addressList = addressService.getAll();
-        if(!addressList.isEmpty()){
+        if (!addressList.isEmpty()) {
             return new ResponseEntity<>(addressList, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
-    @PostMapping(value="home/payment", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> createCart( @RequestBody PaymentDTO paymentDTO) {
+    /**
+     * Created: DuyNP
+     * Method: save customer and sendEmail
+     * @return ResponseEntity<>(HttpStatus.OK);
+     */
+    @PostMapping(value = "/home/payment", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HttpStatus> createCart(@RequestBody PaymentDTO paymentDTO) {
         CustomerTransfer customerTransfer = paymentDTO.getCustomerTransfer();
         CustomerDTO customerDTO = new CustomerDTO();
-        BeanUtils.copyProperties( customerTransfer,customerDTO);
+        BeanUtils.copyProperties(customerTransfer, customerDTO);
         List<Cart> cartList = paymentDTO.getCartList();
         Iterable<Customer> customerList = iCustomerService.findAll();
         customerDTO.setCustomers(customerList);
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDTO, customer);
-        customer.setAddress(new Address(customerTransfer.getAddress().getId(),customerTransfer.getAddress().getName()));
+        customer.setAddress(customerTransfer.getAddress());
         iCustomerService.save(customer);
-        sendEmail(customer,cartList);
+        sendEmail(customer, cartList);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    private void sendEmail (Customer customer,List<Cart> cartList){
+
+    /**
+     * Created: DuyNP
+     * property sendEmail
+     * @param customer
+     * @param cartList
+     */
+    private void sendEmail(Customer customer, List<Cart> cartList) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(customer.getEmail());
         message.setSubject("[Thông báo] Xác nhận thanh toán thành công");
-        String textMessage = "Kính gửi: Quý khách " +customer.getName()+ ".\n" +
-                "Vật tư y tế CodeGym xin trân trọng gửi đến quý khách : \n" +
+        String textMessage = "Kính gửi: Quý khách " + customer.getName() + ".\n" +
+                "Vật tư y tế C0821G1 xin trân trọng gửi đến quý khách : \n" +
                 "THÔNG BÁO XÁC NHẬN ĐẶT HÀNG THÀNH CÔNG ! \n"
-                + "Đơn hàng của quý khách bao gồm: \n" ;
+                + "Đơn hàng của quý khách bao gồm: \n";
         int totalMoney = 0;
         for (Cart cart : cartList) {
             totalMoney += (cart.getTotalMoney() * cart.getQuantity());
             textMessage += cart.getCode() + " với số lượng: " + cart.getQuantity() + " \n";
         }
-        textMessage += "Tổng giá tiền đơn hàng của quý khách là: "+ totalMoney + " !";
+        textMessage += "Tổng giá tiền đơn hàng của quý khách là: " + totalMoney + " !";
         message.setText(textMessage);
-        // Send Message!
-        this.emailSender.send(message);
-    }
-        /**
-     * Created: DuyNP
-     * Method: send-email
-     * @param requestMail
-     * @return ResponseEntity<>(HttpStatus.OK);
-     */
-    @PostMapping("send-email")
-    public ResponseEntity<?> sendEmailTo(@RequestBody RequestMail requestMail) {
-        sendMail(requestMail);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-    /**
-     * Created: DuyNP
-     * @param requestMail
-     */
-    private void sendMail (RequestMail requestMail){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(requestMail.getEmail());
-        message.setSubject("[C0821G1] KÍNH CHÀO QUÝ KHÁCH");
-        message.setText("Dear " +requestMail.getName() + ", \n \nCTY - TNHH C0821G1 CODEGYM Xin cảm ơn quý khách " +
-                " đã gửi yêu cần hỗ trợ về công ty chúng tôi. \n" +
-                " Xin quý khách vui lòng đợi, nhân viên của chúng tôi sẽ phản hồi lại email này theo thời gian sớm nhất.  \n" +
-                " Xin cảm ơn quý khách đã quan tâm tới công ty chúng tôi! \n \n" +
-                " Trân trong cảm ơn quý khách");
         this.emailSender.send(message);
     }
 }

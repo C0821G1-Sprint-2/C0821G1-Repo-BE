@@ -37,7 +37,6 @@ public class EquipmentRestController {
     /**
      * Created: DuyNP
      * Method: return equipment by id
-     *
      * @param id
      * @return ResponseEntity<>(equipment, HttpStatus.OK);
      */

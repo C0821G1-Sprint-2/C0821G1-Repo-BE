@@ -14,16 +14,19 @@ public class Address {
 
     private String name;
 
-
     @OneToMany(mappedBy = "address")
     @JsonBackReference
     private Set<Customer> customers;
+
 
     public Address() {
     }
 
     public Address(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
+
 
     public Integer getId() {
         return id;
@@ -39,14 +42,6 @@ public class Address {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(Set<Customer> customers) {
-        this.customers = customers;
     }
 }
 
