@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+
 import com.example.demo.dto.EmployeeDTO;
 import com.example.demo.entity.employee.Employee;
 import com.example.demo.repository.IEmployeeRepository;
@@ -7,8 +8,10 @@ import com.example.demo.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,6 +47,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
+    public List<Employee> findAllEmployee() {
+        return this.employeeRepository.findAllEmployee();
+    }
+
+    @Override
+    public Page<Employee> findAllEmployeeByKeyword(String keyword, Pageable pageable) {
+        return this.employeeRepository.findAllEmployeeByKeyword(keyword, pageable);
+    }
+
+    @Override
     public Optional<Employee> findEployeeById(Integer id) {
         return this.employeeRepository.findEployeeById(id);
     }
@@ -52,4 +65,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public void deleteById(Integer id) {
         this.employeeRepository.deleteById(id);
     }
+    //Bảo tìm nhân viên theo mã nhân viên
+    @Override
+    public Employee findEmployeeByCode(String employeeCode) {
+        return employeeRepository.getEmployeeByCode(employeeCode);
+    }
+
 }
