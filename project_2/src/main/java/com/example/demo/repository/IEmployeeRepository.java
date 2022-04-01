@@ -70,6 +70,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
             "where code =?1", nativeQuery = true)
     Employee getEmployeeByCode(String employeeCode);
 
+
 }
 
 

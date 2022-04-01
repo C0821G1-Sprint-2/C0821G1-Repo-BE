@@ -2,19 +2,24 @@ package com.example.demo.dto;
 
 import com.example.demo.entity.employee.EmployeePosition;
 
+import javax.validation.constraints.NotBlank;
+
 public class EmployeeDTO {
     private Integer id;
+    @NotBlank(message = "Mã nhân viên không được để trống")
     private String code;
+    @NotBlank(message = "Tên không được để trống")
     private String name;
     private String dateOfBirth;
     private String gender;
     private String address;
+    @NotBlank(message = "Số điện thoại không được để trống")
     private String phone;
     private String image;
     private Boolean deleteFlag;
     private EmployeePosition employeePosition;
 
-    public EmployeeDTO(Integer id,String code, String name, String dateOfBirth, String gender, String address, String phone, String image, Boolean deleteFlag, EmployeePosition employeePosition) {
+    public EmployeeDTO(Integer id, String code, String name, String dateOfBirth, String gender, String address, String phone, String image, Boolean deleteFlag, EmployeePosition employeePosition) {
         this.id = id;
         this.code = code;
         this.name = name;
