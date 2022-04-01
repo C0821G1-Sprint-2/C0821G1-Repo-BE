@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
-@RequestMapping(value = "employee-position")
+@RequestMapping(value = "api/employee-position")
 public class EmployeePositionController {
     @Autowired
     IEmployeePositionService employeePositionService;

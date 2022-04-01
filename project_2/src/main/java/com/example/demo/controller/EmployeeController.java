@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
-
 import com.example.demo.dto.EmployeeDTO;
 import com.example.demo.entity.employee.Employee;
-import com.example.demo.service.IEmployeeService;
 import com.example.demo.service.impl.EmployeeServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-@RequestMapping(value = "/employee")
+@RequestMapping(value = "api/employee", method = RequestMethod.GET)
 public class EmployeeController {
     @Autowired
     EmployeeServiceImpl employeeService;
@@ -51,7 +49,7 @@ public class EmployeeController {
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
         }
         Employee employee = new Employee();
-        BeanUtils.copyProperties(employeeDTO    , employee);
+        BeanUtils.copyProperties(employeeDTO, employee);
         employee.setDeleteFlag(false);
         employeeService.editEmployee(employee);
         return new ResponseEntity<>(HttpStatus.OK);
