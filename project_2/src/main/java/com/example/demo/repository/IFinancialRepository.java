@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IFinancialRepository extends JpaRepository<Financial,Integer> {
-@Query(value="select * from financial where month like concat('%',:month,'%')" +
+@Query(value="select * from financial where month = :month " +
         " and year like concat('%',:year,'%') ",nativeQuery = true)
     Page<Financial> search(Pageable pageable, @Param("month") String month, @Param("year") String year);
 }

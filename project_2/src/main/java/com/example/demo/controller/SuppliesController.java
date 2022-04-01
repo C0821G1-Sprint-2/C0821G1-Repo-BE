@@ -1,13 +1,10 @@
 package com.example.demo.controller;
-
-import com.example.demo.entity.financial_statistics.Financial;
 import com.example.demo.entity.financial_statistics.Supplies;
 import com.example.demo.service.ISuppliesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +22,21 @@ public class SuppliesController {
                                                    @RequestParam(defaultValue = "") String startDay,
                                                    @RequestParam(defaultValue = "") String endDay
     ) {
-        Pageable pageable = PageRequest.of(page, 10);
-        System.out.println("test");
+        Pageable pageable = PageRequest.of(page, 5);
+        System.out.println("test" + startDay+ " =====> " + endDay);
         Page<Supplies> suppliesListSearch = suppliesService.findAll(pageable, startDay, endDay);
         System.out.println(suppliesListSearch);
         if (suppliesListSearch.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(suppliesListSearch, HttpStatus.OK);
+    }
+
+    @GetMapping(value= "/check")
+    public ResponseEntity<Boolean> findAll(@RequestParam(defaultValue = "") String startDay,
+                                                  @RequestParam(defaultValue = "") String endDay
+    ) {
+        Boolean check = this.suppliesService.checkDate(startDay,endDay);
+        return new ResponseEntity<>(check, HttpStatus.OK);
     }
 }
