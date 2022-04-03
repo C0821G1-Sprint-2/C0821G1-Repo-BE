@@ -20,7 +20,12 @@ public class AppUserServiceImpl implements IAppUserService {
     }
 
     @Override
-    public AppUser findAppUserByEmail(String email) {
+    public AppUser findAppUserByUsername(String email) {
         return iAppUserRepository.findAppUserByEmail(email);
+    }
+
+    @Override
+    public Boolean existAppUserByUsername(String userName) {
+        return iAppUserRepository.getAppUserByUsername(userName) != null;
     }
 }

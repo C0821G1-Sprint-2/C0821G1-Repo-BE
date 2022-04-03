@@ -7,6 +7,8 @@ import com.example.demo.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeServiceImpl implements IEmployeeService {
     @Autowired
@@ -28,5 +30,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public Employee getEmployeeByUsername(String username) {
         return employeeRepository.findEmployeeByAppUser(username);
+    }
+
+    @Override
+    public List<Employee> getAll() {
+        return employeeRepository.findAll();
+    }
+
+    @Override
+    public Boolean existsEmployeeByCode(String employeeCode) {
+        return employeeRepository.getEmployeeByCode(employeeCode) != null;
     }
 }

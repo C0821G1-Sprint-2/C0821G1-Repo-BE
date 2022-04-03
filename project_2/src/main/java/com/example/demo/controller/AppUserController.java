@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RequestMapping(value = "/api/appuser")
 public class AppUserController {
     @Autowired
@@ -34,29 +34,47 @@ public class AppUserController {
                                                 BindingResult bindingResult) {
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
-        //set role
-        Set<Roles> roleList = new HashSet<>();
-        Roles roles = new Roles();
+        System.out.println(code);
         Employee employee = employeeService.findEmployeeByCode(code);
-        if (employee.getEmployeePosition().getId() == 1) {
-            roles.setId(2);
-        } else {
-            roles.setId(1);
+        if (code == null) {
+            bindingResult.rejectValue("username", "Mã nhân viên không được để trống");
         }
-        roleList.add(roles);
-        appUser.setRoles(roleList);
-        appUser.setDeleted(false);
-        appUser.setEnabled(true);
-        appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
+        if (!employeeService.existsEmployeeByCode(code)) {
+            bindingResult.rejectValue("username", "Mã nhân viên không tồn tại");
+        }
 
-        //Bảo đăng ký tài khoản nhân viên
-        employee.setAppUser(appUser);
+//         if (employee.getAppUser().getId() != null) {
+//            bindingResult.rejectValue("username", "Nhân viên này đã có tài khoản");
+//        }
 
-        employeeService.saveEmployee(employee);
+        if (appUserService.existAppUserByUsername(appUser.getUsername())) {
+            bindingResult.rejectValue("username", "Tên tài khoản đã tồn tại");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
+        } else {
+            //set role
+            Set<Roles> roleList = new HashSet<>();
+            Roles roles = new Roles();
+            if (employee.getEmployeePosition().getId() == 1) {
+                roles.setId(2);
+            } else {
+                roles.setId(1);
+            }
+            roleList.add(roles);
+            appUser.setRoles(roleList);
+            appUser.setDeleted(false);
+            appUser.setEnabled(true);
+            appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
+
+            //Bảo đăng ký tài khoản nhân viên
+            employee.setAppUser(appUser);
+
+            employeeService.saveEmployee(employee);
 
 
-        return new ResponseEntity<>(HttpStatus.OK);
-
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 }
