@@ -7,7 +7,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
 
 @Service
 public class SuppliesService implements ISuppliesService {
@@ -19,7 +24,21 @@ public class SuppliesService implements ISuppliesService {
     }
 
     @Override
-    public List<Supplies> getAll() {
-        return suppliesRepository.findAll();
+    public Boolean checkDate(String startDay, String endDay) {
+
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date start = simpleDateFormat.parse(startDay);
+            Date end = simpleDateFormat.parse(endDay);
+
+            if (start.after(end)){
+                return true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
     }
 }

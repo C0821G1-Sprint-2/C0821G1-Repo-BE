@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ISuppliesService {
     Page<Supplies> findAll(Pageable pageable, String startDay, String endDay);
-    List<Supplies> getAll();
+    Boolean checkDate(String startDay, String endDay);
 }

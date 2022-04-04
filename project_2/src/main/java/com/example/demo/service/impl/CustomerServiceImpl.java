@@ -50,6 +50,16 @@ public class CustomerServiceImpl implements ICustomerService {
         customerRepository.deleteCustomer(id);
     }
 
+    @Override
+    public Iterable<Customer> findAll() {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public void save(Customer customer) {
+        customerRepository.save(customer);
+    }
+
     //    DuongNT - customer list
 
 

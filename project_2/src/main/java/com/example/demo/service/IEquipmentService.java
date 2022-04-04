@@ -9,7 +9,8 @@ import java.util.Optional;
 
 
 public interface IEquipmentService {
-
+    Page<Equipment> getAll(Pageable pageable);
+    Page<Equipment> findEquipmentByEquipmentType(Pageable pageable, Integer equipmentTypeID);
     void addEquipment(Equipment equipment);
     void editEquipment(Equipment equipment);
     Equipment findById(Integer id);
@@ -22,5 +23,6 @@ public interface IEquipmentService {
     public static void chec(){
 
     };
+
 
 }
