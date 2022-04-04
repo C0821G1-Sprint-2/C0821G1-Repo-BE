@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping(value = "/equipment")
+@RequestMapping(value = "api/equipment")
 public class EquipmentRestController {
     @Autowired
     EquipmentServiceImpl equipmentService;
