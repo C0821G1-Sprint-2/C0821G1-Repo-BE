@@ -8,20 +8,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class EquipmentDTO {
-    @NotNull
     private Integer id;
     @NotNull
     private String code;
     @NotNull
     private String name;
     @NotNull
-    @Pattern(regexp = "^[\\d]{4,9}$", message = "Số tiền phải nhập đúng định dạng")
+//    @Pattern(regexp = "^[\\d]{4,9}$", message = "Số tiền phải nhập đúng định dạng")
     private String price;
     @NotNull
     private String expired;
-    @NotNull
     private String status;
-    @NotNull
     private Boolean deleteFlag;
     @NotNull
     private String image;
@@ -124,5 +121,21 @@ public class EquipmentDTO {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
+    }
+
+    @Override
+    public String toString() {
+        return "EquipmentDTO{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", expired='" + expired + '\'' +
+                ", status='" + status + '\'' +
+                ", deleteFlag=" + deleteFlag +
+                ", image='" + image + '\'' +
+                ", equipmentType=" + equipmentType +
+                ", supplier=" + supplier +
+                '}';
     }
 }

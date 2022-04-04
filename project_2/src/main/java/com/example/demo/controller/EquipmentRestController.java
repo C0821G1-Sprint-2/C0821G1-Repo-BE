@@ -19,8 +19,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.print.DocFlavor;
 import javax.validation.Valid;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -80,24 +82,38 @@ public class EquipmentRestController {
         this.emailSender.send(message);
     }
 
+//Đông
+    @GetMapping("/list")
+    public ResponseEntity<Object> list(){
+        List<Equipment> equipmentList = equipmentService.findList();
+        return new ResponseEntity<>(equipmentList, HttpStatus.OK);
+    }
 
 //    Đông
     @PostMapping("/add")
     public ResponseEntity<Object> addEquipment(@Valid @RequestBody EquipmentDTO equipmentDTO, BindingResult bindingResult) {
 
-
+        if (equipmentService.checkCode(equipmentDTO.getCode())){
+            System.out.println("lỗi");
+            bindingResult.rejectValue("code","Mã vật tư đã tồn tại");
+        }
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
+            System.out.println("Loi Dong");
+            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_MODIFIED);
         }
         Equipment equipment = new Equipment();
+        System.out.println(equipmentDTO.toString());
         BeanUtils.copyProperties(equipmentDTO, equipment);
         equipment.setDeleteFlag(false);
         equipmentService.addEquipment(equipment);
         return new ResponseEntity<>(equipmentDTO,HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/edit")
+//    Đông
+    @PatchMapping(value = "/edit/{id}")
     public ResponseEntity<Object> editEquipment(@RequestBody @Valid EquipmentDTO equipmentDTO, BindingResult bindingResult) {
+
+
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
         }
@@ -144,6 +160,13 @@ public class EquipmentRestController {
         equipmentService.deleteEquipment(id);
         return new ResponseEntity<>(equipmentOptional.get(), HttpStatus.OK);
     }
+
+    @GetMapping("/check")
+    public ResponseEntity<Boolean> checkDay(@RequestParam("param1") String expired){
+        boolean check = this.equipmentService.checkDate(expired);
+        return new ResponseEntity<>(check, HttpStatus.OK);
+    }
+
 //    @GetMapping("/find-by-id/{id}")
 //    public ResponseEntity<Equipment> findFloorsById(@PathVariable Integer id) {
 //        Equipment equipment = equipmentService.findById(id);

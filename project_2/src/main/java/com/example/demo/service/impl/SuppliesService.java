@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SuppliesService implements ISuppliesService {
     @Autowired
@@ -14,5 +16,10 @@ public class SuppliesService implements ISuppliesService {
     @Override
     public Page<Supplies> findAll(Pageable pageable, String startDay, String endDay) {
         return suppliesRepository.searchSupplies(pageable,startDay,endDay);
+    }
+
+    @Override
+    public List<Supplies> getAll() {
+        return suppliesRepository.findAll();
     }
 }

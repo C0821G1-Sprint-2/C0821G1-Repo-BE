@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,10 +17,10 @@ public interface IEquipmentRepository extends JpaRepository<Equipment,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "insert into equipment(code,`name`,equipment_type_id,price,expired,supplier_id,image) " +
-            " values (?1,?2,?3,?4,?5,?6,?7)", nativeQuery = true)
+    @Query(value = "insert into equipment(code,`name`,equipment_type_id,price,expired,supplier_id,image, delete_flag) " +
+            " values (?1,?2,?3,?4,?5,?6,?7,?8)", nativeQuery = true)
     void saveEquipment(String code, String name, Integer equipmentTypeId, String price,
-                      String expired,Integer supplierId,String image);
+                      String expired,Integer supplierId,String image, Boolean deleteFlag);
 
     @Transactional
     @Modifying
@@ -28,6 +30,12 @@ public interface IEquipmentRepository extends JpaRepository<Equipment,Integer> {
             " where e.id =?8", nativeQuery = true)
     void editEquipment(String code, String name, Integer equipmentTypeId, String price,
                        String expired,Integer supplierId,String image, Integer id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "select * from equipment " +
+            " where code = ?1", nativeQuery = true)
+    List<Equipment> selectCode(String code);
 
     // Anh Tây xóa vật tư
     @Transactional

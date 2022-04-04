@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("http://localhost:4200")
 @RequestMapping(value = "/supplies")
@@ -21,8 +23,8 @@ public class SuppliesController {
     // Lanh
     @GetMapping(value = "/search")
     public ResponseEntity<Page<Supplies>> findAll(@PageableDefault(value = 2) Pageable pageable,
-                                                   @RequestParam(defaultValue = "") String startDay,
-                                                   @RequestParam(defaultValue = "") String endDay
+                                                  @RequestParam(defaultValue = "") String startDay,
+                                                  @RequestParam(defaultValue = "") String endDay
     ) {
         System.out.println("test");
         Page<Supplies> suppliesListSearch = suppliesService.findAll(pageable, startDay, endDay);
@@ -32,4 +34,6 @@ public class SuppliesController {
         }
         return new ResponseEntity<>(suppliesListSearch, HttpStatus.OK);
     }
+
+
 }
