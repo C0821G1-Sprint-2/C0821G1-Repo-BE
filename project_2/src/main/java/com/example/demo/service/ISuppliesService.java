@@ -7,4 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ISuppliesService {
     Page<Supplies> findAll(Pageable pageable, String startDay, String endDay);
+
+    Boolean checkDate(String startDay, String endDay);
 }
