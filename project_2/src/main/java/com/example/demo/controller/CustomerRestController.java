@@ -16,6 +16,8 @@ import java.util.Optional;
 @CrossOrigin("http://localhost:4200")
 @RequestMapping(value = "/customer")
 public class CustomerRestController {
+
+
     @Autowired
     private CustomerServiceImpl customerService;
 
@@ -71,6 +73,5 @@ public class CustomerRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(customersNewPage, HttpStatus.OK);
-
     }
 }

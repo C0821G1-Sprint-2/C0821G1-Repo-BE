@@ -87,6 +87,7 @@ public class EquipmentRestController {
 
 
         if (bindingResult.hasErrors()) {
+            System.out.println("Lee Jong Dong");
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
         }
         Equipment equipment = new Equipment();
