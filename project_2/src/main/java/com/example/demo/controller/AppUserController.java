@@ -36,18 +36,16 @@ public class AppUserController {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         System.out.println(code);
         Employee employee = employeeService.findEmployeeByCode(code);
-        if (code == null) {
-            bindingResult.rejectValue("username", "Mã nhân viên không được để trống");
-        }
+//        if (code == null) {
+//            bindingResult.rejectValue("username", "Mã nhân viên không được để trống");
+//        }
         if (!employeeService.existsEmployeeByCode(code)) {
             bindingResult.rejectValue("username", "Mã nhân viên không tồn tại");
         }
-
-//         if (employee.getAppUser().getId() != null) {
-//            bindingResult.rejectValue("username", "Nhân viên này đã có tài khoản");
-//        }
-
-        if (appUserService.existAppUserByUsername(appUser.getUsername())) {
+        else if(employee.getAppUser() != null){
+            bindingResult.rejectValue("username", "Nhân viên này đã có tài khoản");
+        }
+        else if (appUserService.existAppUserByUsername(appUser.getUsername())) {
             bindingResult.rejectValue("username", "Tên tài khoản đã tồn tại");
         }
 
