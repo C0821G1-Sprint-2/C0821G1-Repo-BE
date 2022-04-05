@@ -30,6 +30,22 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
+    public boolean existsEmployeeByCode(String spaceCode) {
+        return employeeRepository.existsEmployeeByCode(spaceCode) != null;
+    }
+
+    @Override
+    public boolean checkCodeEmployee(String spaceCode) {
+        List<Employee> employees = employeeRepository.findAllEmployee();
+        for (Employee e : employees) {
+            if (e.getCode().equals(spaceCode)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void editEmployee(Employee employee) {
         employeeRepository.editEmployee(employee.getCode(), employee.getName(), employee.getDateOfBirth(),
                 employee.getDeleteFlag(), employee.getGender(), employee.getImage(), employee.getPhone(),
@@ -60,10 +76,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public void deleteById(Integer id) {
         this.employeeRepository.deleteById(id);
     }
+
     //Bảo tìm nhân viên theo mã nhân viên
     @Override
     public Employee findEmployeeByCode(String employeeCode) {
         return employeeRepository.getEmployeeByCode(employeeCode);
     }
+
 
 }

@@ -27,4 +27,9 @@ public interface IEmployeeService {
 
     void saveEmployee(Employee employee);
 
+    boolean existsEmployeeByCode(String spaceCode);
+
+
+    boolean checkCodeEmployee(String spaceCode);
+
 }
