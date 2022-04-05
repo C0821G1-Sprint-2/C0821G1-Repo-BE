@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Array;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,9 +37,6 @@ public class AppUserController {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         System.out.println(code);
         Employee employee = employeeService.findEmployeeByCode(code);
-//        if (code == null) {
-//            bindingResult.rejectValue("username", "Mã nhân viên không được để trống");
-//        }
         if (!employeeService.existsEmployeeByCode(code)) {
             bindingResult.rejectValue("username", "Mã nhân viên không tồn tại");
         }
