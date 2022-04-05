@@ -21,13 +21,17 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
+import javax.print.DocFlavor;
 import javax.validation.Valid;
+
+import java.util.List;
 import java.util.Optional;
 
 
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping(value = "/equipment")
+@RequestMapping(value = "api/equipment")
 public class EquipmentRestController {
     @Autowired
     EquipmentServiceImpl equipmentService;
@@ -61,6 +65,15 @@ public class EquipmentRestController {
         return new ResponseEntity<>(equipments, HttpStatus.OK);
     }
 
+
+////Đông
+//    @GetMapping("/list")
+//    public ResponseEntity<Object> list(){
+//        List<Equipment> equipmentList = equipmentService.findList();
+//        return new ResponseEntity<>(equipmentList, HttpStatus.OK);
+//    }
+
+
     // NghiaDM tim kiem vat tu theo ma vat tu
     @GetMapping(value = "/search")
     public ResponseEntity<Page<Equipment>> findEquipmentByEquipmentTypeId(
@@ -74,24 +87,32 @@ public class EquipmentRestController {
         }
         return new ResponseEntity<>(equipments, HttpStatus.OK);
     }
+
 //    Đông
     @PostMapping("/add")
     public ResponseEntity<Object> addEquipment(@Valid @RequestBody EquipmentDTO equipmentDTO, BindingResult bindingResult) {
 
-
+        if (equipmentService.checkCode(equipmentDTO.getCode())){
+            System.out.println("lỗi");
+            bindingResult.rejectValue("code","Mã vật tư đã tồn tại");
+        }
         if (bindingResult.hasErrors()) {
-            System.out.println("Lee Jong Dong");
-            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
+            System.out.println("Loi Dong");
+            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_MODIFIED);
         }
         Equipment equipment = new Equipment();
+        System.out.println(equipmentDTO.toString());
         BeanUtils.copyProperties(equipmentDTO, equipment);
         equipment.setDeleteFlag(false);
         equipmentService.addEquipment(equipment);
         return new ResponseEntity<>(equipmentDTO,HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/edit")
+//    Đông
+    @PatchMapping(value = "/edit/{id}")
     public ResponseEntity<Object> editEquipment(@RequestBody @Valid EquipmentDTO equipmentDTO, BindingResult bindingResult) {
+
+
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
         }
@@ -139,6 +160,14 @@ public class EquipmentRestController {
         return new ResponseEntity<>(equipmentOptional.get(), HttpStatus.OK);
     }
 
+
+    @GetMapping("/check")
+    public ResponseEntity<Boolean> checkDay(@RequestParam("param1") String expired){
+        boolean check = this.equipmentService.checkDate(expired);
+        return new ResponseEntity<>(check, HttpStatus.OK);
+    }
+
+
 }
 
 //package com.example.demo.controller;
@@ -169,6 +198,7 @@ public class EquipmentRestController {
 //     * @param id
 //     * @return ResponseEntity<>(equipment, HttpStatus.OK);
 //     */
+
 //    @GetMapping("/find-by-id/{id}")
 //    public ResponseEntity<Equipment> findFloorsById(@PathVariable Integer id) {
 //        Equipment equipment = equipmentService.findById(id);

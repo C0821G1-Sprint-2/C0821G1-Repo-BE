@@ -59,7 +59,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value = " select * from employee \n" +
             " where employee.name like %?1% or employee.date_of_birth like %?1% or employee.phone like %?1% and employee.delete_flag = 0 " +
             " order by employee.id desc ", nativeQuery = true,
-            countQuery = " select count(*) from equipment \n " +
+            countQuery = " select count(*) from employee \n " +
                     " where employee.name like %?1% or employee.date_of_birth like %?1% or employee.phone like %?1% and employee.delete_flag = 0 " +
                     " order by employee.id desc ")
     Page<Employee> findAllEmployeeByKeyword(String keyword,@Param("page") Pageable pageable);
@@ -70,7 +70,10 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
             "where code =?1", nativeQuery = true)
     Employee getEmployeeByCode(String employeeCode);
 
-
+    @Query(value = "SELECT * " +
+            "from employee  " +
+            "where code =?1", nativeQuery = true)
+    Employee existsEmployeeByCode(String code);
 }
 
 
