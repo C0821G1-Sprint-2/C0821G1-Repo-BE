@@ -16,4 +16,5 @@ public interface IEmployeePositionRepository extends JpaRepository<EmployeePosit
     @Query(value = "select *\n" +
             "from employee_position", nativeQuery = true)
     List<EmployeePosition> getAllEmployeePosition();
+
 }

@@ -47,11 +47,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public List<Employee> findAllEmployee() {
-        return this.employeeRepository.findAllEmployee();
-    }
-
-    @Override
     public Page<Employee> findAllEmployeeByKeyword(String keyword, Pageable pageable) {
         return this.employeeRepository.findAllEmployeeByKeyword(keyword, pageable);
     }

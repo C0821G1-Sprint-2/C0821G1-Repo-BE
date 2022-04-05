@@ -11,10 +11,11 @@ import java.util.Optional;
 public interface IEmployeeService {
 
     void editEmployee(Employee employee);
+
     EmployeeDTO findByEmployeeId(Integer id);
+
     Page<Employee> findAllEmployee(Pageable pageable);
 
-    List<Employee> findAllEmployee();
 
     Page<Employee> findAllEmployeeByKeyword(String keyword, Pageable pageable);
 

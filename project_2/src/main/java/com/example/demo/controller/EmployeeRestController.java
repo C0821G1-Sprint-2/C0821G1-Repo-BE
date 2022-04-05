@@ -11,12 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/employee")
+@RequestMapping(value = "api/employees")
 public class EmployeeRestController {
 
     @Autowired
