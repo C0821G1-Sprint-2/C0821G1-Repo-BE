@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.entity.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +24,6 @@ public interface ICustomerService {
                                                                  String phone,
                                                                  String identify_number);
     void deleteCustomer(Integer id);
+
+    Page<Customer> findAllCustomerByKeyword(String keyword, Pageable pageable);
 }

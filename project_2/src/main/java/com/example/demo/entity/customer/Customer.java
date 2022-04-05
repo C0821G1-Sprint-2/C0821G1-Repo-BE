@@ -22,7 +22,6 @@ public class Customer {
 
     private String address;
 
-    private String addressHome;
 
     private Boolean deleteFlag;
 
@@ -32,13 +31,6 @@ public class Customer {
     public Customer() {
     }
 
-    public String getAddressHome() {
-        return addressHome;
-    }
-
-    public void setAddressHome(String addressHome) {
-        this.addressHome = addressHome;
-    }
 
     public List<Cart> getCarts() {
         return carts;

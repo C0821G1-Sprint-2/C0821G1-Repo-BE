@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-//import java.awt.print.Pageable;
+
 
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
@@ -32,4 +32,13 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Modifying
     @Query(value = "update customer set delete_flag = 1 where id = :id", nativeQuery = true)
     void deleteCustomer(@Param("id") Integer id);
+
+
+    @Query(value = " select * from customer \n" +
+            " where (customer.address like %?1% or customer.code like %?1% or customer.email like %?1% or customer.name like %?1% or customer.phone like %?1%) and customer.delete_flag = false " +
+            " order by customer.id desc ", nativeQuery = true,
+            countQuery = " select count(*) from customer \n " +
+                    " where (customer.address like %?1% or customer.code like %?1% or customer.email like %?1% or customer.name like %?1% or customer.phone like %?1%) and customer.delete_flag = false " +
+                    " order by customer.id desc ")
+    Page<Customer> findAllCustomerByKeyword(String keyword, @Param("page") Pageable pageable);
 }
