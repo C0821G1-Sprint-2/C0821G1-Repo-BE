@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/equipmentType")
+@RequestMapping(value = "/api/equipmentType")
 public class EquipmentTypeController {
 
     @Autowired

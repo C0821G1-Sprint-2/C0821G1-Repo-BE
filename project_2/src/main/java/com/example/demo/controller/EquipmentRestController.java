@@ -46,9 +46,9 @@ public class EquipmentRestController {
      * @return ResponseEntity<>(equipment, HttpStatus.OK);
      */
     @GetMapping("/find-by-id/{id}")
-    public ResponseEntity<Equipment> findById(@PathVariable Integer id) {
-        Equipment equipment = equipmentService.findById(id);
-        if (equipment == null) {
+    public ResponseEntity<Object> findById(@PathVariable Integer id) {
+        Optional<Equipment> equipment = equipmentService.findEquipmentById(id);
+        if (!equipment.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(equipment, HttpStatus.OK);
