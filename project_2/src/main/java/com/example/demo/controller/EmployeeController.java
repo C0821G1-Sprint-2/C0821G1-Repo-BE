@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,10 +39,15 @@ public class EmployeeController {
 
     // PhienLD thêm mới nhân viên
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> addEmployee(@RequestBody EmployeeDTO employeeDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_MODIFIED);
+    public ResponseEntity<Object> addEmployee(@RequestBody  @Valid EmployeeDTO employeeDTO, BindingResult bindingResult) {
+        if (employeeService.existsEmployeeByCode(employeeDTO.getCode())) {
+            bindingResult.rejectValue("code","Mã mặt bằng đã tồn tại");
         }
+
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
+        }
+
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
         System.out.println(employeeDTO);
@@ -52,7 +58,7 @@ public class EmployeeController {
 
     // PhienLD chỉnh sửa  nhân viên
     @PatchMapping(value = "/update/{id}")
-    public ResponseEntity<Object> editEmployee(@RequestBody EmployeeDTO employeeDTO, BindingResult bindingResult) {
+    public ResponseEntity<Object> editEmployee(@RequestBody @Valid EmployeeDTO employeeDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
         }
@@ -106,5 +112,13 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(employeeNewPage, HttpStatus.OK);
 
+    }
+
+    @GetMapping("check/{code}")
+    public ResponseEntity<Boolean> checkCode(@PathVariable String code){
+
+        boolean checkCode = this.employeeService.checkCodeEmployee(code);
+
+        return new ResponseEntity<>(checkCode,HttpStatus.OK);
     }
 }
