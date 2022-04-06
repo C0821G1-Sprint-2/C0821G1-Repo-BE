@@ -23,4 +23,8 @@ public interface ICustomerService {
                                                                  String customer_phone,
                                                                  String customer_identify_number);
     void deleteCustomer(Integer id);
+
+    Iterable<Customer> findAll();
+
+    void save(Customer customer);
 }

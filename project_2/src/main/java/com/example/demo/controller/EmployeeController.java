@@ -8,12 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
 @RequestMapping(value = "/api/employee")
 public class EmployeeController {
     @Autowired
@@ -27,12 +25,5 @@ public class EmployeeController {
 //            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //        }
         return new ResponseEntity<>(employee, HttpStatus.OK);
-    }
-
-    //Bảo tìm list nhân viên
-    @GetMapping(value = "/list-select")
-    public ResponseEntity<List<Employee>> getAll() {
-        List<Employee> employeeList = employeeService.getAll();
-        return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 }
