@@ -35,7 +35,6 @@ public class Equipment {
     @ManyToOne
     private Certifications certifications;
 
-
     @ManyToOne
 //    @JoinColumn(name = "id", nullable = false)
     private Supplier supplier;
@@ -47,9 +46,7 @@ public class Equipment {
     public Equipment() {
     }
 
-    public List<Cart> getCarts() {
-        return carts;
-    }
+
 
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
