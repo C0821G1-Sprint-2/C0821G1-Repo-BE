@@ -45,8 +45,8 @@ public interface IEquipmentRepository extends JpaRepository<Equipment, Integer> 
 
     @Transactional
     @Modifying
-    @Query(value = "select * from equipment " +
-            " where code = ?1", nativeQuery = true)
+    @Query(value = "select * from equipment" +
+            " where code =?1 and delete_flag=0 ", nativeQuery = true)
     List<Equipment> selectCode(String code);
 
     // Anh Tây xóa vật tư
