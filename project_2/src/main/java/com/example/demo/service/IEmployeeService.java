@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
+import java.util.List;
+
 public interface IEmployeeService {
 
     void editEmployee(Employee employee);
@@ -27,7 +29,14 @@ public interface IEmployeeService {
 
     void saveEmployee(Employee employee);
 
-    boolean existsEmployeeByCode(String spaceCode);
+
+    Employee getEmployeeByUsername(String username);
+
+    List<Employee> getAll();
+
+    Boolean existsEmployeeByCode(String employeeCode);
+
+//    boolean existsEmployeeByCode(String spaceCode);
 
 
     boolean checkCodeEmployee(String spaceCode);
