@@ -4,6 +4,7 @@ import com.example.demo.entity.customer.Customer;
 import com.example.demo.service.impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -71,6 +72,22 @@ public class CustomerRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(customersNewPage, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/customer-list")
+    public ResponseEntity<Page<Customer>> findEquipmentByKeyword(
+            @RequestParam(defaultValue = "") String keyword,
+            @RequestParam(defaultValue = "0") int page
+    ) {
+
+        Pageable pageable = PageRequest.of(page, 3);
+        Page<Customer> equipmentNewPage = customerService.findAllCustomerByKeyword(keyword, pageable);
+        System.out.println(equipmentNewPage);
+        if (equipmentNewPage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(equipmentNewPage, HttpStatus.OK);
 
     }
 }
