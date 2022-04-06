@@ -4,6 +4,18 @@ plugins {
     id 'java'
 }
 
+sonarqube {
+    properties {
+        property 'sonar.host.url', 'http://192.168.1.78:9000/'
+        property 'sonar.login',
+                'c411f85018504e7c7cf185253d699d752a4d5b76'
+        property 'sonar.projectKey', 'C0821G1_ReviewCode_DuongNT'
+        property 'sonar.projectName', 'C0821G1_ReviewCode_DuongNT'
+    }
+}
+
+
+
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
