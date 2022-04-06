@@ -46,9 +46,9 @@ public class EquipmentRestController {
      * @return ResponseEntity<>(equipment, HttpStatus.OK);
      */
     @GetMapping("/find-by-id/{id}")
-    public ResponseEntity<Equipment> findById(@PathVariable Integer id) {
-        Equipment equipment = equipmentService.findById(id);
-        if (equipment == null) {
+    public ResponseEntity<Object> findById(@PathVariable Integer id) {
+        Optional<Equipment> equipment = equipmentService.findEquipmentById(id);
+        if (!equipment.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(equipment, HttpStatus.OK);
@@ -134,12 +134,12 @@ public class EquipmentRestController {
 
     //Tây chức năng hiển thị thông tin vật tư
     @GetMapping("/equipment-list")
-    public ResponseEntity<Page<Equipment>> findContractByNameAndCodeAndDate(
+    public ResponseEntity<Page<Equipment>> findEquipmentByKeyword(
             @RequestParam(defaultValue = "") String keyword,
             @RequestParam(defaultValue = "0") int page
     ) {
 
-        Pageable pageable = PageRequest.of(page, 2);
+        Pageable pageable = PageRequest.of(page, 5);
         Page<Equipment> equipmentNewPage = equipmentService.findAllEquipmentByKeyword(keyword, pageable);
         System.out.println(equipmentNewPage);
         if (equipmentNewPage.isEmpty()) {
@@ -151,7 +151,7 @@ public class EquipmentRestController {
 
     //Tây chức năng xóa vật tư
     @DeleteMapping("delete-equipment/{id}")
-    public ResponseEntity<Equipment> deleteCustomer(@PathVariable Integer id) {
+    public ResponseEntity<Equipment> deleteEquipment(@PathVariable Integer id) {
         Optional<Equipment> equipmentOptional = equipmentService.findEquipmentById(id);
         if (!equipmentOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
