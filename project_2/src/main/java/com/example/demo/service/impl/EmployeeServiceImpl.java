@@ -8,11 +8,10 @@ import com.example.demo.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class EmployeeServiceImpl implements IEmployeeService {
@@ -29,10 +28,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     }
 
-    @Override
-    public boolean existsEmployeeByCode(String spaceCode) {
-        return employeeRepository.existsEmployeeByCode(spaceCode) != null;
-    }
+//    @Override
+//    public boolean existsEmployeeByCode(String spaceCode) {
+//        return employeeRepository.existsEmployeeByCode(spaceCode) != null;
+//    }
 
     @Override
     public boolean checkCodeEmployee(String spaceCode) {
@@ -84,4 +83,18 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
 
+    @Override
+    public Employee getEmployeeByUsername(String username) {
+        return employeeRepository.findEmployeeByAppUser(username);
+    }
+
+    @Override
+    public List<Employee> getAll() {
+        return employeeRepository.findAll();
+    }
+
+    @Override
+    public Boolean existsEmployeeByCode(String employeeCode) {
+        return employeeRepository.getEmployeeByCode(employeeCode) != null;
+    }
 }

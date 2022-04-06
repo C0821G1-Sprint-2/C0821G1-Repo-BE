@@ -20,6 +20,7 @@ public class Customer {
 
     private String phone;
 
+
     private Boolean deleteFlag;
 
     private String address;

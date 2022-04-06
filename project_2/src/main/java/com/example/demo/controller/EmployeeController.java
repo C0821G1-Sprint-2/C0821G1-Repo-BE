@@ -15,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +22,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RequestMapping(value = "api/employee", method = RequestMethod.GET)
+
 public class EmployeeController {
     @Autowired
     EmployeeServiceImpl employeeService;
@@ -35,6 +35,14 @@ public class EmployeeController {
 //            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //        }
         return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
+
+
+    //Bảo tìm list nhân viên
+    @GetMapping(value = "/list-select")
+    public ResponseEntity<List<Employee>> getAll() {
+        List<Employee> employeeList = employeeService.getAll();
+        return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 
     // PhienLD thêm mới nhân viên

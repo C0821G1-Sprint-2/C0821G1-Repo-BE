@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 import java.util.Optional;
@@ -62,7 +63,7 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
             countQuery = " select count(*) from employee \n " +
                     " where employee.name like %?1% or employee.date_of_birth like %?1% or employee.phone like %?1% and employee.delete_flag = 0 " +
                     " order by employee.id desc ")
-    Page<Employee> findAllEmployeeByKeyword(String keyword,@Param("page") Pageable pageable);
+    Page<Employee> findAllEmployeeByKeyword(String keyword, @Param("page") Pageable pageable);
 
     //Bảo kiểm tìm kiếm nhân viên theo mã nhân viên
     @Query(value = "SELECT * " +
@@ -70,10 +71,18 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
             "where code =?1", nativeQuery = true)
     Employee getEmployeeByCode(String employeeCode);
 
+    //Bảo tìm kiếm nhân viên theo appuser
+    @Query(value = "SELECT * from employee e " +
+            "join app_user a on e.app_user_id = a.id " +
+            "where a.username =?1 and e.delete_flag = false ", nativeQuery = true)
+    Employee findEmployeeByAppUser(String username);
+
+    //Bảo kiểm tra nhân viên có tồn tại trong DB theo mã nhân viên
     @Query(value = "SELECT * " +
             "from employee  " +
             "where code =?1", nativeQuery = true)
     Employee existsEmployeeByCode(String code);
+
 }
 
 
