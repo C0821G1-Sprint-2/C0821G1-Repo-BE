@@ -26,4 +26,7 @@ public interface ICustomerService {
     void deleteCustomer(Integer id);
 
     Page<Customer> findAllCustomerByKeyword(String keyword, Pageable pageable);
+    Iterable<Customer> findAll();
+
+    void save(Customer customer);
 }

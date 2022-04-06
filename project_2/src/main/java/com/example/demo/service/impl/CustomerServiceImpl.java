@@ -52,10 +52,21 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public Page<Customer> findAllCustomerByKeyword(String keyword, Pageable pageable) {
-        return this.customerRepository.findAllCustomerByKeyword(keyword,pageable);
+        return this.customerRepository.findAllCustomerByKeyword(keyword, pageable);
+
+
+        //    DuongNT - customer list
+
+
     }
 
-    //    DuongNT - customer list
+    @Override
+    public Iterable<Customer> findAll() {
+        return this.customerRepository.findAll();
+    }
 
-
+    @Override
+    public void save(Customer customer) {
+        this.customerRepository.save(customer);
+    }
 }
