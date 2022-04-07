@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.EmployeeDTO;
 import com.example.demo.entity.employee.Employee;
+import com.example.demo.entity.security.AppUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -36,8 +37,11 @@ public interface IEmployeeService {
 
     Boolean existsEmployeeByCode(String employeeCode);
 
-//    boolean existsEmployeeByCode(String spaceCode);
+    //    boolean existsEmployeeByCode(String spaceCode);
 
+    void editEmployeeAppUserId(AppUser appUser, Employee employee);
+
+    void saveEmployee1(Employee employee);
 
     boolean checkCodeEmployee(String spaceCode);
 

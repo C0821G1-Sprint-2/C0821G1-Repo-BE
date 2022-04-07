@@ -67,7 +67,7 @@ public class AppUserController {
             //Bảo đăng ký tài khoản nhân viên
             employee.setAppUser(appUser);
 
-            employeeService.saveEmployee(employee);
+            employeeService.saveEmployee1(employee);
 
 
             return new ResponseEntity<>(HttpStatus.OK);

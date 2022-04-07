@@ -57,7 +57,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //phan quyen
                 .and().authorizeRequests().antMatchers("/api/customer/**",
                 "/api/equipment/**",
-                "/api/financial/**"
+                "/api/financial/**",
+                "/api/employee/update/**",
+                "/api/employee/find/**"
                 )
 //                "/api/employee/search/**")
                 .hasAnyRole("EMPLOYEE", "ADMIN")
