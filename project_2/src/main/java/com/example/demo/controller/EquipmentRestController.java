@@ -93,9 +93,13 @@ public class EquipmentRestController {
     public ResponseEntity<Object> addEquipment(@Valid @RequestBody EquipmentDTO equipmentDTO, BindingResult bindingResult) {
 
         if (equipmentService.checkCode(equipmentDTO.getCode())){
-            System.out.println("lỗi");
-            bindingResult.rejectValue("code","Mã vật tư đã tồn tại");
+            System.out.println("lỗi code");
+            bindingResult.rejectValue("code","Mã vật tư đã tồn tại.");
         }
+//        if (equipmentService.checkDate(equipmentDTO.getExpired())){
+//            System.out.println("lỗi date");
+//            bindingResult.rejectValue("expired","Lớn hơn ngày hiện tại.");
+//        }
         if (bindingResult.hasErrors()) {
             System.out.println("Loi Dong");
             return new ResponseEntity<>(bindingResult.getFieldError(), HttpStatus.NOT_MODIFIED);
@@ -161,8 +165,8 @@ public class EquipmentRestController {
     }
 
 
-    @GetMapping("/check")
-    public ResponseEntity<Boolean> checkDay(@RequestParam("param1") String expired){
+    @GetMapping("/check/{day}")
+    public ResponseEntity<Boolean> checkDay(@PathVariable("day") String expired){
         boolean check = this.equipmentService.checkDate(expired);
         return new ResponseEntity<>(check, HttpStatus.OK);
     }

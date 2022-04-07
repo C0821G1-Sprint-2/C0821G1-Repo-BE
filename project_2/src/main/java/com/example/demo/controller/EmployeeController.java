@@ -97,7 +97,7 @@ public class EmployeeController {
 
 
     @GetMapping(value = "/list")
-    public ResponseEntity<Page<Employee>> findAllEmployee(String keyword, @PageableDefault(value = 3) Pageable pageable) {
+    public ResponseEntity<Page<Employee>> findAllEmployee(String keyword, @PageableDefault(value = 5) Pageable pageable) {
         Page<Employee> employeeList = this.employeeService.findAllEmployeeByKeyword(keyword, pageable);
         if (employeeList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
