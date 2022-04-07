@@ -95,20 +95,20 @@ public class EquipmentServiceImpl  implements IEquipmentService{
     @Override
     public boolean checkDate(String expired) {
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date date = simpleDateFormat.parse(expired);
+            Date toDay = simpleDateFormat.parse(expired);
 
-            LocalDateTime date1 = LocalDateTime.now();
-            Date date2 = simpleDateFormat.parse(String.valueOf(date1));
+            long millis = System.currentTimeMillis();
+            java.sql.Date date1 = new java.sql.Date(millis);
 
             System.out.println("han: " + expired);
-            System.out.println("giá trị hôm ni nề: " + date2);
+            System.out.println("giá trị hôm ni nề: " + date1);
 
-            if (date.after(date2)){
-                System.out.println("lối ngày nhỏ hơn rồi");
+            if (toDay.after(date1)){
+              return true;
             }else {
-                return true;
+                return false;
             }
         } catch (ParseException e) {
             System.out.println("lloio");
