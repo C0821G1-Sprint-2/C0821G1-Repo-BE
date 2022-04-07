@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dto.EmployeeDTO;
 import com.example.demo.entity.employee.Employee;
+import com.example.demo.entity.security.AppUser;
 import com.example.demo.repository.IEmployeeRepository;
 import com.example.demo.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,5 +97,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public Boolean existsEmployeeByCode(String employeeCode) {
         return employeeRepository.getEmployeeByCode(employeeCode) != null;
+    }
+
+    @Override
+    public void editEmployeeAppUserId(AppUser appUser, Employee employee) {
+         employeeRepository.editEmployeeAppUserId(appUser.getId(),employee.getId());
+    }
+
+    @Override
+    public void saveEmployee1(Employee employee) {
+        employeeRepository.save(employee);
     }
 }

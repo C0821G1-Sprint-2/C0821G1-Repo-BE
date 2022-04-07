@@ -35,6 +35,14 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
                       String image, String phone, String address,
                       Integer employeePositionId, Integer id);
 
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE employee \n" +
+            "SET `app_user_id` = ?1 \n" +
+            "WHERE `id` = ?2", nativeQuery = true)
+    void editEmployeeAppUserId(Integer appUserId,Integer employeeId);
+
+
     @Query(nativeQuery = true)
     EmployeeDTO findEmployeeById(Integer employeeId);
 

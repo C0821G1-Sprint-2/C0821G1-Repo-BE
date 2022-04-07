@@ -78,14 +78,23 @@ public class EmployeeController {
 
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Employee> findEmployeeById(@PathVariable("id") Integer id) {
+//    @GetMapping(value = "/{id}")
+//    public ResponseEntity<Employee> findEmployeeById(@PathVariable("id") Integer id) {
+//        Optional<Employee> employeeOptional = this.employeeService.findEployeeById(id);
+//        if (!employeeOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(employeeOptional.get(), HttpStatus.OK);
+//    }
+    @GetMapping(value = "/find/{id}")
+    public ResponseEntity<Employee> findEmployeeById1(@PathVariable("id") Integer id) {
         Optional<Employee> employeeOptional = this.employeeService.findEployeeById(id);
         if (!employeeOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(employeeOptional.get(), HttpStatus.OK);
     }
+
 
     @GetMapping(value = "/list")
     public ResponseEntity<Page<Employee>> findAllEmployee(String keyword, @PageableDefault(value = 3) Pageable pageable) {
