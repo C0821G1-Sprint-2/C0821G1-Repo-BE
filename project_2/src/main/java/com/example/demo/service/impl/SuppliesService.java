@@ -22,8 +22,6 @@ public class SuppliesService implements ISuppliesService {
 
     @Override
     public Boolean checkDate(String startDay, String endDay) {
-
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date start = simpleDateFormat.parse(startDay);
