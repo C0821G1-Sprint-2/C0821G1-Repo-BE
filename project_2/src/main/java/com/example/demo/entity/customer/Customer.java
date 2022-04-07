@@ -20,15 +20,26 @@ public class Customer {
 
     private String phone;
 
-    private String address;
 
     private Boolean deleteFlag;
+
+    private String address;
 
     @OneToMany(mappedBy = "customer")
     @JsonBackReference
     private List<Cart> carts;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Customer() {
     }
+
 
     public List<Cart> getCarts() {
         return carts;
@@ -76,14 +87,6 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public Boolean getDeleteFlag() {

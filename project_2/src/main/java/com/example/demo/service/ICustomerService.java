@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.entity.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,9 +19,14 @@ public interface ICustomerService {
 //
 //    //    DuongNT - search by name, email, phone, identify number
     Page<Customer> findCustomerByNameAndEmailAndPhoneAndIdentify(Pageable pageable,
-                                                                 String customer_name,
-                                                                 String customer_email,
-                                                                 String customer_phone,
-                                                                 String customer_identify_number);
+                                                                 String name,
+                                                                 String email,
+                                                                 String phone,
+                                                                 String identify_number);
     void deleteCustomer(Integer id);
+
+    Page<Customer> findAllCustomerByKeyword(String keyword, Pageable pageable);
+    Iterable<Customer> findAll();
+
+    void save(Customer customer);
 }

@@ -6,20 +6,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class MedicalSuppliesStatistics {
+public class Supplies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String code;
     private String name;
-    private String importedMaterials;
-    private String salableMaterials;
-    private String inventoryMaterials;
-    private String damagedMaterials;
+    private Integer importedMaterials;
+    private Integer salableMaterials;
+    private Integer inventoryMaterials;
+    private Integer damagedMaterials;
     private String startDay;
     private String endDay;
 
-    public MedicalSuppliesStatistics(Integer id, String code, String name, String importedMaterials, String salableMaterials, String inventoryMaterials, String damagedMaterials, String startDay, String endDay) {
+    public Supplies() {
+    }
+
+    public Supplies(Integer id, String code, String name, Integer importedMaterials, Integer salableMaterials,
+                    Integer inventoryMaterials, Integer damagedMaterials, String startDay, String endDay) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -29,9 +33,6 @@ public class MedicalSuppliesStatistics {
         this.damagedMaterials = damagedMaterials;
         this.startDay = startDay;
         this.endDay = endDay;
-    }
-
-    public MedicalSuppliesStatistics() {
     }
 
     public Integer getId() {
@@ -58,35 +59,35 @@ public class MedicalSuppliesStatistics {
         this.name = name;
     }
 
-    public String getImportedMaterials() {
+    public Integer getImportedMaterials() {
         return importedMaterials;
     }
 
-    public void setImportedMaterials(String importedMaterials) {
+    public void setImportedMaterials(Integer importedMaterials) {
         this.importedMaterials = importedMaterials;
     }
 
-    public String getSalableMaterials() {
+    public Integer getSalableMaterials() {
         return salableMaterials;
     }
 
-    public void setSalableMaterials(String salableMaterials) {
+    public void setSalableMaterials(Integer salableMaterials) {
         this.salableMaterials = salableMaterials;
     }
 
-    public String getInventoryMaterials() {
+    public Integer getInventoryMaterials() {
         return inventoryMaterials;
     }
 
-    public void setInventoryMaterials(String inventoryMaterials) {
+    public void setInventoryMaterials(Integer inventoryMaterials) {
         this.inventoryMaterials = inventoryMaterials;
     }
 
-    public String getDamagedMaterials() {
+    public Integer getDamagedMaterials() {
         return damagedMaterials;
     }
 
-    public void setDamagedMaterials(String damagedMaterials) {
+    public void setDamagedMaterials(Integer damagedMaterials) {
         this.damagedMaterials = damagedMaterials;
     }
 
