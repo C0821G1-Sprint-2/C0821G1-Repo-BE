@@ -11,16 +11,10 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String code;
-
     private String name;
-
     private String email;
-
     private String phone;
-
-
     private Boolean deleteFlag;
 
     private String address;
