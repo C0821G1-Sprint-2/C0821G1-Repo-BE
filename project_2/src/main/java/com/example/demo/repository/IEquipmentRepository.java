@@ -29,10 +29,10 @@ public interface IEquipmentRepository extends JpaRepository<Equipment, Integer> 
 
     @Transactional
     @Modifying
-    @Query(value = "insert into equipment(code,`name`,equipment_type_id,price,expired,supplier_id,image) " +
-            " values (?1,?2,?3,?4,?5,?6,?7)", nativeQuery = true)
+    @Query(value = "insert into equipment(code,`name`,equipment_type_id,price,expired,supplier_id,image, delete_flag) " +
+            " values (?1,?2,?3,?4,?5,?6,?7,?8)", nativeQuery = true)
     void saveEquipment(String code, String name, Integer equipmentTypeId, String price,
-                      String expired,Integer supplierId,String image);
+                      String expired,Integer supplierId,String image, Boolean deleteFlag);
 
     @Transactional
     @Modifying
@@ -42,6 +42,12 @@ public interface IEquipmentRepository extends JpaRepository<Equipment, Integer> 
             " where e.id =?8", nativeQuery = true)
     void editEquipment(String code, String name, Integer equipmentTypeId, String price,
                        String expired,Integer supplierId,String image, Integer id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "select * from equipment" +
+            " where code =?1 and delete_flag=0 ", nativeQuery = true)
+    List<Equipment> selectCode(String code);
 
     // Anh Tây xóa vật tư
     @Transactional
@@ -55,11 +61,12 @@ public interface IEquipmentRepository extends JpaRepository<Equipment, Integer> 
     Optional<Equipment> findEquipmentById(Integer id);
 
     @Query(value = " select * from equipment \n" +
-            " where equipment.code like %?1% and equipment.delete_flag = 0 " +
+            " where (equipment.code like %?1% or equipment.expired like %?1% or equipment.name like %?1% or equipment.price like %?1%) and equipment.delete_flag = false " +
             " order by equipment.id desc ", nativeQuery = true,
             countQuery = " select count(*) from equipment \n " +
-                    " where equipment.code like %?1% and equipment.delete_flag = 0 " +
+                    " where (equipment.code like %?1% or equipment.expired like %?1% or equipment.name like %?1% or equipment.price like %?1%) and equipment.delete_flag = false " +
                     " order by equipment.id desc ")
     Page<Equipment> findAllContractByKeyword(String keyword, @Param("page") Pageable pageable);
+
 
 }

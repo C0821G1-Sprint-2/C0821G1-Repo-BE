@@ -35,7 +35,6 @@ public class Equipment {
     @ManyToOne
     private Certifications certifications;
 
-
     @ManyToOne
 //    @JoinColumn(name = "id", nullable = false)
     private Supplier supplier;
