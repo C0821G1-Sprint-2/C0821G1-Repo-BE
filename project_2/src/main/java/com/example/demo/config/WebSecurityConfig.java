@@ -51,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // Các trang không yêu cầu login
                 .antMatchers("/api/public/**",
-                        "/**/*.js", "/**/*.css",
+                        "/**/*.js", "/**/*.css","/api/equipment/equipment-list-body/**",
                         "/**/*.jpg", "/**/*.png")
                 .permitAll()
                 //phan quyen

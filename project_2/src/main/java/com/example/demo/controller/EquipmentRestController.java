@@ -150,7 +150,6 @@ public class EquipmentRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(equipmentNewPage, HttpStatus.OK);
-
     }
 
     //Tây chức năng xóa vật tư
@@ -169,6 +168,22 @@ public class EquipmentRestController {
     public ResponseEntity<Boolean> checkDay(@PathVariable("day") String expired){
         boolean check = this.equipmentService.checkDate(expired);
         return new ResponseEntity<>(check, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/equipment-list-body")
+    public ResponseEntity<Page<Equipment>> findEquipmentListBodyByKeyword(
+            @RequestParam(defaultValue = "") String keyword,
+            @RequestParam(defaultValue = "0") int page
+    ) {
+
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Equipment> equipmentNewPage = equipmentService.findAllEquipmentByKeyword(keyword, pageable);
+        System.out.println(equipmentNewPage);
+        if (equipmentNewPage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(equipmentNewPage, HttpStatus.OK);
     }
 
 
